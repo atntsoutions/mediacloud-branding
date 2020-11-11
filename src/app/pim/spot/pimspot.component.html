@@ -1,0 +1,331 @@
+
+
+
+<div class="page-header" *ngIf="showHeading">
+  <div class="col">
+    <label>{{title}}</label>
+    <button (click)="ActionHandler('LIST','')" class="btn btn-info btn-sm mx-1">List</button>
+    <button (click)="ActionHandler('ADD','')" class="btn btn-info btn-sm mr-1"
+      *ngIf="menu_record.rights_add">New</button>
+    <button class="btn btn-info btn-sm mx-1" (click)="Close()">Close</button>
+  </div>
+</div>
+
+<div *ngIf="data.tab == 'LIST'">
+
+  <div class="page-list">
+    <div class="page-search">
+
+      <div class="row mt-1">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-2">Search</label>
+            <div class="col-10">
+              <input type="text" class="col form-control form-control-sm" [(ngModel)]="data.searchString" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-2"></label>
+            <div class="col-10">
+              <button (click)="List('NEW')" class="btn btn-info btn-sm mr-1">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="page-pager">
+    <div *ngIf="data.page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{data.page_current}}/{{data.page_count}}
+            (Records-{{data.page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="page-body table-responsive" style="height:430px;overflow-x: hidden; overflow-y: auto;">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>CF#</th>
+          <th>DATE</th>
+          
+          <th>REGION</th>
+          <th>STORE</th>
+          <th>VENDOR</th>
+
+          <th>EXECUTIVE</th>
+          <th>STORE-CONTACT</th>
+          <th>STORE-TEL</th>
+
+          <th>APPROVAL-STATUS</th>
+          <th>BY</th>
+          <th>DATE</th>
+          <th>REMRAKS</th>
+
+          <th>CREATED-BY</th>
+          <th>CREATED-DATE</th>
+
+
+          <th *ngIf="menu_record.rights_delete">DELETE</th>          
+
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+
+
+        <tr *ngFor="let rec of data.RecordList; let i = index">
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_slno}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_date }}</td>
+          
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_region_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_store_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_vendor_name}}</td>
+
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_executive_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_store_contact_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_store_contact_tel}}</td>
+
+
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.approved_status}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.approved_by}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.approved_date}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.approved_remarks}}</td>
+
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.rec_created_by}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.rec_created_date}}</td>
+
+          <td *ngIf="menu_record.rights_delete"><i (click)="remove(rec)" class="fa fa-lg fa-trash" aria-hidden="true"></i></td>          
+          
+        </tr>
+
+      </tbody>
+
+    </table>
+  </div>
+
+
+  <div class="page-pager">
+    <div *ngIf="data.page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{data.page_current}}/{{data.page_count}}
+            (Records-{{data.page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div *ngIf="data.tab == 'DETAILS'" class="page-details">
+
+  <div class="row">
+    <div class="col-sm-6  steelblue text-white font-weight-bold">
+      <div class="form-group row">
+        <label class="col-12 col-form-label col-form-label-sm">STORE INFO</label>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+
+    <div class="col-sm-6 border">
+
+      <div class="form-group row mt-1">
+        <label class="col-4 col-form-label col-form-label-sm">CF#</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.spot_slno" disabled />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label  col-form-label-sm">Date</label>
+        <div class="col-8">
+          <app-date [inputdate]="data.Record.spot_date" (ValueChanged)="data.Record.spot_date=$event"></app-date>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label  col-form-label-sm">Store</label>
+        <div class="col-8">
+          <app-autocomplete2 [controlname]="'store'" [tabletype]="'STORE'" [subtype]=""
+            [parentid]="gs.globalVariables.user_pkid" [parentmandatory]="false" [displaycolumn]="'NAME'"
+            [id]="data.Record.spot_store_id" [displaydata]="data.Record.spot_store_name"
+            (IdChanged)="data.Record.spot_store_id=$event" (NameChanged)="data.Record.spot_store_name=$event">
+          </app-autocomplete2>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label  col-form-label-sm">Vendor</label>
+        <div class="col-8">
+          <app-autocomplete2 [controlname]="'vendor'" [tabletype]="'VENDOR'" [subtype]=""
+            [parentid]="gs.globalVariables.user_pkid" [parentmandatory]="false" [displaycolumn]="'NAME'"
+            [id]="data.Record.spot_vendor_id" [displaydata]="data.Record.spot_vendor_name"
+            (IdChanged)="data.Record.spot_vendor_id=$event" (NameChanged)="data.Record.spot_vendor_name=$event">
+          </app-autocomplete2>
+        </div>
+      </div>
+
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Store View</label>
+        <div class="col-8">
+          <InputFile [fileType]="''" [fileName]="data.Record.spot_store_view"
+            [serverFolder]="gs.getServerImageFolder(data.Record.spot_pkid, 'storeview')"
+            (fileNameChanged)="data.Record.spot_store_view=$event"
+            (fileChanged)="data.Record.spot_store_view_file=$event"
+            (fileUploaded)="data.Record.spot_store_view_file_uploaded=$event">
+          </InputFile>
+        </div>
+      </div>
+
+
+
+      <div class="form-group row mt-1">
+        <label class="col-4 col-form-label col-form-label-sm">Executive Name</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.spot_executive_name"
+            maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row mt-1">
+        <label class="col-4 col-form-label col-form-label-sm">Store Contact Name</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.spot_store_contact_name"
+            maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row mt-1">
+        <label class="col-4 col-form-label col-form-label-sm">Store Contact Tel</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.spot_store_contact_tel"
+            maxlength="100" />
+        </div>
+      </div>
+
+
+
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Installation Report</label>
+        <div class="col-8">
+          <InputFile [fileType]="''" [fileName]="data.Record.spot_installation_view"
+            [serverFolder]="gs.getServerImageFolder(data.Record.spot_pkid, 'installationview')"
+            (fileNameChanged)="data.Record.spot_installation_view=$event"
+            (fileChanged)="data.Record.spot_installation_view_file=$event"
+            (fileUploaded)="data.Record.spot_installation_view_file_uploaded=$event">
+          </InputFile>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 border py-1">
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <button (click)="Save()" class="btn btn-primary btn-sm mr-1" *ngIf="canSave">Save</button>
+          <button (click)="Print()" class="btn btn-primary btn-sm mr-1" *ngIf="data.mode == 'EDIT'">Print</button>
+          
+          <App-Approval [id]="data.pkid" *ngIf="data.mode == 'EDIT' && bApproval"></App-Approval>
+
+          <button (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm ml-1">Return</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="data.mode == 'EDIT'">
+
+    <div class="row mt-3">
+      <div class="col-sm-6 steelblue text-white font-weight-bold">
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">SPOT DETAILS</label>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngFor="let rec of data.RecordDet; let i = index" class="mt-2">
+      <app-pimspotdet 
+        [Record]="rec" 
+        [menu_record]="menu_record"
+        (saveDet)="saveDet($event)"
+        (deleteDet)="deleteDet($event)">
+      </app-pimspotdet>
+    </div>
+
+    
+    <div class="row mt-1" *ngIf="canSave">
+      <div class="col-sm-6 p-0">
+        <button (click)="AddSpot()" class="btn btn-info btn-sm btn-block"  >CLICK HERE TO ADD SPOT</button>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</div>
+
+
+<div *ngIf="data.tab == 'REPORT'">
+  <app-report 
+    [title]="'Spot Details'" 
+    [menuid]="report_menuid"
+    [filename]="data.report.filename"
+    [filetype]="data.report.filetype"
+    [filedisplayname]="data.report.filedisplayname"
+    (callbackevent)="callbackevent($event)"></app-report>
+</div>
+
+
+
+<br />
+
+<div *ngIf="data.InfoMessage" class="alert alert-success">
+  {{data.InfoMessage}}
+</div>
+<div *ngIf="data.ErrorMessage" class="alert alert-danger">
+  {{data.ErrorMessage}}
+</div>
+
+

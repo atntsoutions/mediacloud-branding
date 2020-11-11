@@ -1,0 +1,73 @@
+<button (click)="showContent(content)" class="btn btn-primary btn-sm">Approval</button>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Approval</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+  <div class="modal-body">
+
+    <div class="page-list">
+      <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+          <thead class="page-body-thead">
+            <tr>
+              <th>DATE</th>
+              <th>USER</th>
+              <th>STATUS</th>
+              <th>COMMENTS</th>
+            </tr>
+          </thead>
+          <tbody class="page-body-tbody">
+            <tr *ngFor="let rec of RecordList; let i = index">
+              <td>{{rec.ad_date}}</td>
+              <td>{{rec.ad_by}}</td>
+              <td>{{rec.ad_status}}</td>
+              <td>{{rec.ad_remarks}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="page-list mt-1" *ngIf="bSave" >
+
+      <div class="row" >
+        <div class="col-sm-8">
+          
+          <div class="form-group row">
+            <label class="col-2 col-form-label col-form-label-sm">Comments</label>
+            <div class="col-10">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="comments" maxlength="250" />
+            </div>
+          </div>
+
+          <div class="form-group row my-2">
+            <div class="offset-2 col-10">
+              <button (click)="Save('APPROVE')" class="btn btn-primary btn-sm mr-3" >APPROVE</button>
+              <button (click)="Save('REJECT')" class="btn btn-primary btn-sm " >REJECT</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="ErrorMessage" class="alert alert-danger">
+      {{ErrorMessage}}
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="mx-auto">
+      <button type="button" ngbAutofocus class="btn btn-info" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </div>
+
+</ng-template>

@@ -1,0 +1,311 @@
+<div class="page-header" *ngIf="showHeading">
+  <div class="col">
+
+    <button (click)="ActionHandler('LIST','')" class="btn btn-info btn-sm mr-1">List</button>
+    <button (click)="ActionHandler('NEW','')" class="btn btn-info btn-sm mr-1"
+      *ngIf="menu_record.rights_add">New</button>
+    <button class="btn btn-info btn-sm mr-1" (click)="Close()">Close</button>
+    <label>{{title}}</label>
+  </div>
+</div>
+
+
+
+<div *ngIf="tab=='LIST'">
+
+  <div class="page-list">
+
+    <div class="row mt-1">
+
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <label class="col-2">Search</label>
+          <div class="col-10">
+            <input type="text" class="col form-control form-control-sm" [(ngModel)]="ms.searchString" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+
+        <div class="form-group row">
+          <label class="col-2"></label>
+          <div class="col-10">
+            <button (click)="ms.List('NEW')" class="btn btn-info btn-sm mr-1">Search</button>
+            <button (click)="Download('ALL')" class="btn btn-info btn-sm mr-1"
+              *ngIf="menu_record.rights_print">Download</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="ms.page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{ms.page_current}}/{{ms.page_count}}
+            (Records-{{ms.page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('LAST')"><span class="fa fa-forward"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <div class="page-body table-responsive" style="height:430px;overflow-x: hidden; overflow-y: auto;">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>{{ms.cap_id | uppercase}}</th>
+          <th>IMAGE</th>
+          <th *ngIf='ms.cap_store'>{{ms.cap_store | uppercase}}</th>
+          <th *ngIf='ms.cap_group'>{{ms.cap_group | uppercase}}</th>
+          <th *ngIf='ms.cap_sku'>{{ms.cap_sku | uppercase}}</th>
+          <th *ngIf='ms.cap_file'>{{ms.cap_file | uppercase}}</th>
+          <th>CREATED-BY</th>
+          <th>CREATED-DATE</th>
+          <th *ngIf="menu_record.rights_delete">DELETE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of ms.RecordItemList; let i = index">
+          <td (click)="ActionHandler('EDIT',rec.doc_pkid)">{{rec.doc_slno}}</td>
+          <td (click)="ActionHandler('EDIT',rec.doc_pkid)"> <img src="{{rec.doc_server_folder}}\\{{rec.doc_thumbnail}}{{getTimeStamp()}}" height="40" width="40" [treeDrag]="{id: rec.doc_pkid}" [treeDragEnabled]="true"></td>
+          <td *ngIf='ms.cap_store'  (click)="ActionHandler('EDIT',rec.doc_pkid)">{{rec.doc_store_name}}</td>
+          <td *ngIf='ms.cap_group'  (click)="ActionHandler('EDIT',rec.doc_pkid)">{{rec.doc_grp_level_name}}</td>
+          <td *ngIf='ms.cap_sku'    (click)="ActionHandler('EDIT',rec.doc_pkid)">{{rec.doc_name}}</td>
+          <td *ngIf='ms.cap_file'  (click)="ActionHandler('EDIT',rec.doc_pkid)">{{rec.doc_file_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec.doc_pkid)">{{rec.rec_created_by}}</td>
+          <td (click)="ActionHandler('EDIT',rec.doc_pkid)">{{rec.rec_created_date}}</td>
+          <td *ngIf="menu_record.rights_delete"><i (click)="remove(rec)" class="fa fa-lg fa-trash" aria-hidden="true"></i></td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+
+  <div class="page-pager">
+    <div *ngIf="ms.page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{ms.page_current}}/{{ms.page_count}}
+            (Records-{{ms.page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('LAST')"><span class="fa fa-forward"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+</div>
+
+<div *ngIf="tab == 'DETAILS'" class="page-details">
+
+  <div class="row">
+
+    <div class="col-sm-6 border">
+
+
+      <div class="form-group row mt-1">
+        <label class="col-4 col-form-label col-form-label-sm">{{ms.cap_id}}</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" disabled [(ngModel)]="ms.Record.doc_slno" />
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf='ms.cap_store'>
+        <label class="col-4 col-form-label  col-form-label-sm">{{ms.cap_store}}</label>
+        <div class="col-8">
+          <app-autocomplete2 [controlname]="'store'" [tabletype]="'STORE'" [subtype]="" [parentid]="gs.globalVariables.user_pkid"
+            [displaycolumn]="'NAME'" [id]="ms.Record.doc_store_id" [displaydata]="ms.Record.doc_store_name"
+            (IdChanged)="ms.Record.doc_store_id=$event" (NameChanged)="ms.Record.doc_store_name=$event">
+          </app-autocomplete2>
+        </div>
+      </div>
+
+
+      <div class="form-group row" *ngIf='ms.cap_group'>
+        <label class="col-4 col-form-label  col-form-label-sm">{{ms.cap_group}}</label>
+        <div class="col-8">
+          <app-autocomplete2 [controlname]="'group'" [tabletype]="'PIM-GROUP'" [subtype]="table_name"
+            [displaycolumn]="'NAME'" [id]="ms.Record.doc_grp_id" [displaydata]="ms.Record.doc_grp_level_name"
+            (IdChanged)="ms.Record.doc_grp_id=$event" (NameChanged)="ms.Record.doc_grp_level_name=$event">
+          </app-autocomplete2>
+        </div>
+      </div>
+
+
+      <div class="form-group row" *ngIf='ms.cap_sku'>
+        <label class="col-4 col-form-label  col-form-label-sm">{{ms.cap_sku}}</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="ms.Record.doc_name" required
+            maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf='ms.cap_file'>
+        <label class="col-4 col-form-label col-form-label-sm">{{ms.cap_file}}</label>
+        <div class="col-8">
+          <InputFile [fileType]="''" [fileName]="ms.Record.doc_file_name" [serverFolder]="ms.Record.doc_server_folder"
+            (fileNameChanged)="ms.Record.doc_file_name=$event" (fileChanged)="ms.Record.doc_file=$event"
+            (fileUploaded)="ms.Record.doc_file_uploaded=$event"></InputFile>
+        </div>
+
+      </div>
+
+      <div *ngFor="let rec of ms.ColumnList">
+
+        <div class="form-group row" *ngIf="rec.tabd_col_type =='TEXT'">
+          <label class="col-4 col-form-label  col-form-label-sm">{{rec.tabd_col_caption}}</label>
+          <div class="col-8">
+
+            <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="rec.tabd_col_value" required
+              maxlength="{{rec.tabd_col_len}}" /> -->
+
+            <InputBox [(inputModel)]="rec.tabd_col_value" [maxlength]="rec.tabd_col_len" [case]="rec.tabd_col_case"
+              [rows]="rec.tabd_col_rows"></InputBox>
+
+          </div>
+        </div>
+
+
+        <div class="form-group row" *ngIf="rec.tabd_col_type =='MEMO'">
+          <label class="col-4 col-form-label  col-form-label-sm">{{rec.tabd_col_caption}}</label>
+          <div class="col-8">
+            <textarea rows="{{rec.tabd_col_rows}}" class="form-control form-control-sm" [(ngModel)]="rec.tabd_col_value"
+              required maxlength="{{rec.tabd_col_len}}">
+              </textarea>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="rec.tabd_col_type =='NUMBER'">
+          <label class="col-4 col-form-label  col-form-label-sm">{{rec.tabd_col_caption}}</label>
+          <div class="col-8">
+
+            <!-- <input type="number" class="form-control form-control-sm" [(ngModel)]="rec.tabd_col_value" required
+              maxlength="{{rec.tabd_col_len}}" /> -->
+
+            <InputBoxNumber [(inputModel)]="rec.tabd_col_value" [maxlength]="rec.tabd_col_len" [dec]="rec.tabd_col_dec">
+            </InputBoxNumber>
+
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="rec.tabd_col_type =='DATE'">
+          <label class="col-4 col-form-label  col-form-label-sm">{{rec.tabd_col_caption}}</label>
+          <div class="col-8">
+            <app-date [inputdate]="rec.tabd_col_value" (ValueChanged)="rec.tabd_col_value=$event"></app-date>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="rec.tabd_col_type =='LIST'">
+          <label class="col-4 col-form-label  col-form-label-sm">{{rec.tabd_col_caption}}</label>
+          <div class="col-8">
+            <app-autocomplete2 [controlname]="rec.tabd_col_list" [tabletype]="'PARAM'" [subtype]="rec.tabd_col_list"
+              [displaycolumn]="'NAME'" [id]="rec.tabd_col_id" [displaydata]="rec.tabd_col_value"
+              (IdChanged)="rec.tabd_col_id=$event" (NameChanged)="rec.tabd_col_value=$event">
+            </app-autocomplete2>
+          </div>
+        </div>
+
+
+        <div class="form-group row" *ngIf="rec.tabd_col_type =='FILE'">
+          <label class="col-4 col-form-label col-form-label-sm">{{rec.tabd_col_caption}}</label>
+          <div class="col-8">
+            <InputFile [fileType]="''" [fileName]="rec.tabd_col_value"
+              serverFolder="{{ms.Record.doc_server_folder}}"
+              (fileNameChanged)="rec.tabd_col_value=$event" (fileChanged)="rec.tabd_col_file=$event"
+              (fileUploaded)="rec.tabd_col_file_uploaded=$event"></InputFile>
+
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="col-sm-6">
+      <div *ngIf="ms.Record.rec_mode == 'EDIT'" class="border">
+        
+        <div class="form-group row">
+          <label class="col-4 col-form-label  col-form-label-sm"></label>
+          <div class="col-8">
+            <td class="border p-1">
+              <img style="cursor: pointer;" src="{{ms.Record.doc_server_folder}}\{{ms.Record.doc_thumbnail}}{{getTimeStamp()}}"
+                height="75" width="75"
+                (click)="showImage(content,ms.Record.doc_slno,ms.Record.doc_server_folder,ms.Record.doc_file_name)">
+            </td>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-4 col-form-label  col-form-label-sm"></label>
+          <label class="col-8 col-form-label  col-form-label-sm">Click To Enlarge</label>
+        </div>
+        
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+<div *ngIf="tab == 'DETAILS'" class="page-details">
+
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group row">
+        <div class="offset-10 col-2">
+          <button (click)="saveDoc()" class="btn btn-primary btn-sm mr-1 mt-1" *ngIf="canSave">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<br />
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title"></h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body mx-auto">
+    <p>
+      <img class="border" src="{{imageFileName}}" height="500" width="500">
+    </p>
+
+  </div>
+  <div class="modal-footer">
+    <div class="mx-auto">
+      <button type="button" ngbAutofocus class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </div>
+</ng-template>

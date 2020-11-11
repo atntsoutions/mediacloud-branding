@@ -1,0 +1,138 @@
+
+
+
+
+  <div class="row">
+    
+    <div class="col-sm-6 border">
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">SL#</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_slno" disabled />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Spot Name</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_name" required
+            maxlength="100" />
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Unit</label>
+        <div class="col-8">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.spotd_uom">
+            <option  value="CM">CM</option>
+            <option  value="INCHES">INCHES</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Width</label>
+        <div class="col-8">
+          <InputBoxNumber [(inputModel)]="Record.spotd_wd" [maxlength]="15" [dec]="3">
+          </InputBoxNumber>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">Height</label>
+        <div class="col-8">
+          <InputBoxNumber [(inputModel)]="Record.spotd_ht" [maxlength]="15" [dec]="3">
+          </InputBoxNumber>
+        </div>
+      </div>
+
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label  col-form-label-sm">ArtWork</label>
+        <div class="col-8">
+          <app-autocomplete2 [controlname]="'ARTWORK'" [tabletype]="'PARAM'" [subtype]="'ARTWORK'"
+            [displaycolumn]="'NAME'" [id]="Record.spotd_artwork_id" 
+            [displaydata]="Record.spotd_artwork_name"
+            (IdChanged)="Record.spotd_artwork_id=$event" 
+            (NameChanged)="Record.spotd_artwork_name=$event">
+          </app-autocomplete2>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label  col-form-label-sm">Product</label>
+        <div class="col-8">
+          <app-autocomplete2 [controlname]="'PRODUCT'" [tabletype]="'PARAM'" [subtype]="'PRODUCT'"
+            [displaycolumn]="'NAME'" [id]="Record.spotd_product_id" 
+            [displaydata]="Record.spotd_product_name"
+            (IdChanged)="Record.spotd_product_id=$event" 
+            (NameChanged)="Record.spotd_product_name=$event">
+          </app-autocomplete2>
+        </div>
+      </div>
+
+
+      <div class="form-group row" >
+        <label class="col-4 col-form-label col-form-label-sm">Close View</label>
+        <div class="col-8">
+          <InputFile 
+            [fileType]="''" 
+            [fileName]="Record.spotd_close_view" 
+            [serverFolder]="gs.getServerImageFolder(Record.spotd_pkid, 'closeview')"
+            (fileNameChanged)="Record.spotd_close_view=$event" 
+            (fileChanged)="Record.spotd_close_view_file=$event"
+            (fileUploaded)="Record.spotd_close_view_file_uploaded=$event">
+          </InputFile>
+        </div>
+      </div>
+
+      <div class="form-group row" >
+        <label class="col-4 col-form-label col-form-label-sm">Long View</label>
+        <div class="col-8">
+          <InputFile 
+            [fileType]="''" 
+            [fileName]="Record.spotd_long_view" 
+            [serverFolder]="gs.getServerImageFolder(Record.spotd_pkid, 'longview')"
+            (fileNameChanged)="Record.spotd_long_view=$event" 
+            (fileChanged)="Record.spotd_long_view_file=$event"
+            (fileUploaded)="Record.spotd_long_view_file_uploaded=$event">
+          </InputFile>
+        </div>
+      </div>
+
+      <div class="form-group row" >
+        <label class="col-4 col-form-label col-form-label-sm">Final View</label>
+        <div class="col-8">
+          <InputFile 
+            [fileType]="''" 
+            [fileName]="Record.spotd_final_view" 
+            [serverFolder]="gs.getServerImageFolder(Record.spotd_pkid, 'finalview')"
+            (fileNameChanged)="Record.spotd_final_view=$event" 
+            (fileChanged)="Record.spotd_final_view_file=$event"
+            (fileUploaded)="Record.spotd_final_view_file_uploaded=$event">
+          </InputFile>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row" *ngIf="checkRights()">
+    <div class="col-sm-6 border py-1">
+      <div class="form-group row">
+        <div class="offset-4 col-8">
+          <button (click)="Save()" class="btn btn-primary btn-sm mr-1" >Save</button>
+          <button (click)="Delete()" class="btn btn-primary btn-sm mr-1" >Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+

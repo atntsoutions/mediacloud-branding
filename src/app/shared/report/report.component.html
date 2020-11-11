@@ -1,0 +1,26 @@
+<div *ngIf="tab=='main'">
+
+  <div class="page-header">
+    <div class="row  align-items-center justify-content-left p-1">
+      <label class="mr-3">{{_title}}</label>
+      <button class="btn btn-info btn-sm mr-1" (click)="Close()">Return</button>
+      
+      
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage">
+    <div class="alert alert-primary">
+      {{errorMessage}}
+    </div>
+  </div>
+
+
+  <div class="page-body" style="height:83vh">
+
+    <ng2-pdfjs-viewer [showSpinner]="true" [print]="canPrint" [download]="canDownload" [openFile]="false" [zoom]="100"
+      [cursor]="'HAND'" [scroll]="'V'" #pdfViewerAutoLoad></ng2-pdfjs-viewer>
+
+  </div>
+
+</div>

@@ -1,0 +1,349 @@
+﻿
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm mx-1">List</button>
+    <button [disabled]="loading" *ngIf="menu_record.rights_add" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm mr-1">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()" >Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+
+  <div class="page-search">
+    <div class="row">
+      <label class="col-2">Search</label>
+      <div class="col">
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>NAME</th>
+          <th>ENTITY</th>
+          <th>CAMPAIGN</th>
+          <th>REMOVE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr>
+          <td (click)="ActionHandler('EDIT',rec.cam_pkid)">{{rec.cam_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec.cam_pkid)">{{rec.cam_tab_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec.cam_pkid)">{{ (rec.tab_campaign_table) ? 'Y' : 'N'}}</td>
+          <td ><i (click) ="remove(rec)"  class="fa fa-lg fa-trash" aria-hidden="true"></i></td>          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="currentTab=='DETAILS'" class="page-details">
+
+  <div class="row">
+    
+    <div class="col-sm-6">
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label  col-form-label-sm">Name</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cam_name" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Entity</label>
+        <div class="col-9">
+          <app-autocomplete2 [controlname]="'TABLESM'" [tabletype]="'TABLESM'" [subtype]="" [disabled]="mode=='EDIT'"
+            [displaycolumn]="'CODE'" [id]="Record.cam_tab_id" [displaydata]="Record.cam_tab_name"
+            (IdChanged)="Record.cam_tab_id=$event" (NameChanged)="Record.cam_tab_name=$event">
+          </app-autocomplete2>
+        </div>
+      </div>
+
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Store</label>
+        <div class="col-9">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_store" [displaydata]="Record.cam_store"
+            (IdChanged)="Record.cam_store=$event" (NameChanged)="Record.cam_store=$event">
+          </app-autocomplete2>
+        </div>
+      </div>
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Product</label>
+        <div class="col-5">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_product_name" [displaydata]="Record.cam_product_name"
+            (IdChanged)="Record.cam_product_name=$event" (NameChanged)="Record.cam_product_name=$event">
+          </app-autocomplete2>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cam_product_name_values" required maxlength="100" />
+        </div>
+      </div>
+
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Size</label>
+        <div class="col-5">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_size" [displaydata]="Record.cam_size"
+            (IdChanged)="Record.cam_size=$event" (NameChanged)="Record.cam_size=$event">
+          </app-autocomplete2>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cam_size_values" required maxlength="100" />
+        </div>
+
+      </div>
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">aep</label>
+        <div class="col-5">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_aep" [displaydata]="Record.cam_aep"
+            (IdChanged)="Record.cam_aep=$event" (NameChanged)="Record.cam_aep=$event">
+          </app-autocomplete2>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cam_aep_values" required maxlength="100" />
+        </div>
+      </div>
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">output</label>
+        <div class="col-5">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_output" [displaydata]="Record.cam_output"
+            (IdChanged)="Record.cam_output=$event" (NameChanged)="Record.cam_output=$event">
+          </app-autocomplete2>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cam_output_values" required maxlength="100" />
+        </div>        
+      </div>  
+
+
+    
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Approver</label>
+        <div class="col-9">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_approver" [displaydata]="Record.cam_approver"
+            (IdChanged)="Record.cam_approver=$event" (NameChanged)="Record.cam_approver=$event">
+          </app-autocomplete2>
+        </div>
+      </div>      
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Receiver</label>
+        <div class="col-9">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_receiver" [displaydata]="Record.cam_receiver"
+            (IdChanged)="Record.cam_receiver=$event" (NameChanged)="Record.cam_receiver=$event">
+          </app-autocomplete2>
+        </div>
+      </div>            
+
+
+      
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Logo</label>
+        <div class="col-9">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_logo" [displaydata]="Record.cam_logo"
+            (IdChanged)="Record.cam_logo=$event" (NameChanged)="Record.cam_logo=$event">
+          </app-autocomplete2>
+        </div>
+      </div>      
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Image1</label>
+        <div class="col-9">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_image1" [displaydata]="Record.cam_image1"
+            (IdChanged)="Record.cam_image1=$event" (NameChanged)="Record.cam_image1=$event">
+          </app-autocomplete2>
+        </div>
+      </div>      
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Image2</label>
+        <div class="col-9">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_image2" [displaydata]="Record.cam_image2"
+            (IdChanged)="Record.cam_image2=$event" (NameChanged)="Record.cam_image2=$event">
+          </app-autocomplete2>
+        </div>
+      </div>      
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Image3</label>
+        <div class="col-9">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_image3" [displaydata]="Record.cam_image3"
+            (IdChanged)="Record.cam_image3=$event" (NameChanged)="Record.cam_image3=$event">
+          </app-autocomplete2>
+        </div>
+      </div>      
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Image4</label>
+        <div class="col-9">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_image4" [displaydata]="Record.cam_image4"
+            (IdChanged)="Record.cam_image4=$event" (NameChanged)="Record.cam_image4=$event">
+          </app-autocomplete2>
+        </div>
+      </div>      
+
+
+
+
+      
+
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Image5</label>
+        <div class="col-9">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_image5" [displaydata]="Record.cam_image5"
+            (IdChanged)="Record.cam_image5=$event" (NameChanged)="Record.cam_image5=$event">
+          </app-autocomplete2>
+        </div>
+      </div>      
+
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Text1</label>
+        <div class="col-5">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_text1" [displaydata]="Record.cam_text1"
+            (IdChanged)="Record.cam_text1=$event" (NameChanged)="Record.cam_text1=$event">
+          </app-autocomplete2>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cam_text1_values" required maxlength="100" />
+        </div>        
+      </div>      
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Text2</label>
+        <div class="col-5">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_text2" [displaydata]="Record.cam_text2"
+            (IdChanged)="Record.cam_text2=$event" (NameChanged)="Record.cam_text2=$event">
+          </app-autocomplete2>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cam_text2_values" required maxlength="100" />
+        </div>        
+      </div>      
+
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Text3</label>
+        <div class="col-5">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_text3" [displaydata]="Record.cam_text3"
+            (IdChanged)="Record.cam_text3=$event" (NameChanged)="Record.cam_text3=$event">
+          </app-autocomplete2>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cam_text3_values" required maxlength="100" />
+        </div>        
+
+      </div>      
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Text4</label>
+        <div class="col-5">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_text4" [displaydata]="Record.cam_text4"
+            (IdChanged)="Record.cam_text4=$event" (NameChanged)="Record.cam_text4=$event">
+          </app-autocomplete2>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cam_text4_values" required maxlength="100" />
+        </div>                
+      </div>      
+
+      <div class="form-group row" >
+        <label class="col-3 col-form-label  col-form-label-sm">Text5</label>
+        <div class="col-5">
+          <app-autocomplete2 [controlname]="'TABLECOLUMNS'" [tabletype]="'TABLECOLUMNS'" [subtype]="Record.cam_tab_id"
+            [displaycolumn]="'CODE'" [id]="Record.cam_text5" [displaydata]="Record.cam_text5"
+            (IdChanged)="Record.cam_text5=$event" (NameChanged)="Record.cam_text5=$event">
+          </app-autocomplete2>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cam_text5_values" required maxlength="100" />
+        </div>                
+      </div>            
+
+      
+
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <div class="offset-3 col-9">
+          <button [disabled]="loading" (click)="Save()" class="btn btn-primary btn-sm mr-1 mt-2" *ngIf="canSave"> Save</button>
+          <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm mr-1 mt-2">Return</button>
+          <button [disabled]="loading" (click)="RunCampaign()" class="btn btn-primary btn-sm mr-1 mt-2" *ngIf="Record.tab_campaign_table">Run Campaign</button>
+          <button [disabled]="loading" (click)="ResetCampaign()" class="btn btn-primary btn-sm  mt-2" *ngIf="Record.tab_campaign_table">Reset Campaign</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<br />
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>
+
+
+
+

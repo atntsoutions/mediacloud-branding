@@ -1,0 +1,52 @@
+
+
+
+
+<nav class="navbar fixed-top navbar-expand-lg shadow-sm steelblue text-white" >
+
+<div class ="mr-2">
+    <img src="./assets/images/logo.png" alt="Logo" width="50" height="50">
+  </div>
+
+  <a class="navbar-brand text-warning mt-1" (click)="home()"> <h3>{{title}}</h3></a>
+
+  <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" (click)="home()">Home</a>
+      </li>
+
+
+      <li class="nav-item dropdown" *ngFor="let rech of gs.Modules">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{rech.module_name}}
+        </a>
+        <div class="dropdown-menu pb-0" aria-labelledby="navbarDropdown">
+          <div *ngFor="let rec of gs.MenuList" class="menulist">
+            <a *ngIf="rech.module_name == rec.menu_module_name && rec.menu_displayed"
+              class="dropdown-item border-bottom" (click)="LoadPage(rec)">{{rec.menu_name}}</a>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+
+
+    <form class="form-inline my-2 my-lg-0">
+      <label class="mr-3 text-white" *ngIf="gs.IsAuthenticated">{{gs.globalVariables.user_name}}</label>
+      <button class="btn border border-info rounded  ml-1 text-white" (click)="login()" *ngIf="!gs.IsAuthenticated">Login</button>
+      <!-- <button class="btn border border-info rounded bg-primary  ml-1 text-white" *ngIf="!gs.IsAuthenticated">SignUp</button> -->
+      <button class="btn border border-info rounded bg-primary text-white ml-1" *ngIf="gs.IsAuthenticated" (click)="Logout()">Logout</button>
+    </form>
+
+
+  </div>
+</nav>

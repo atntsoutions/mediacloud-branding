@@ -1,0 +1,105 @@
+<div class="page-header">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
+</div>
+
+<div class="page-details">
+
+  <div class="row">
+
+    <div class="col-sm-10">
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Server URL</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="CO_SERVER_URL" required
+            [maxlength]="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Image Folder</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="CO_IMAGE_FOLDER" required
+            [maxlength]="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Reports Folder</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="CO_REPORTS_FOLDER" required
+            [maxlength]="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">GS Location</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="CO_GS_LOCATION" required
+            [maxlength]="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Back End Date Format</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="CO_BACKEND_DATE_FMT" required
+            [maxlength]="100" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Front End Date Format</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="CO_FRONTEND_DATE_FMT" required
+            [maxlength]="100" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Image Table</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="CO_IMAGE_TABLE" required
+            [maxlength]="100" />
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-3 col-form-label col-form-label-sm">Google BS</label>
+        <div class="col-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="CO_GOOGLE_BS" required
+            [maxlength]="250" />
+        </div>
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div *ngIf="currentTab=='COMPANY'" class="page-box">
+  <div class="row">
+    <div class="col-sm-10">
+      <div class="form-group row">
+        <div class="offset-3 col-9">
+          <button  (click)="SaveCompany()" class="btn btn-primary btn-sm" *ngIf="menu_record.rights_admin" >SAVE</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i>
+        </div>  
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+  {{ErrorMessage}}
+</div>

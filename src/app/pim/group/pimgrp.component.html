@@ -1,0 +1,152 @@
+<div class="page-header" *ngIf="showHeading">
+  <div class="col">
+    <label>{{title}}</label>
+    <button (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm mx-1">List</button>
+    <button class="btn btn-primary btn-sm mx-1" (click)="Close()">Close</button>
+  </div>
+</div>
+
+<div *ngIf="tab == 'LIST'">
+
+  <div class="page-list">
+    <div class="page-search">
+
+      <div class="row mt-1">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-2">Search</label>
+            <div class="col-10">
+              <input type="text" class="col form-control form-control-sm" [(ngModel)]="ms.searchString" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label class="col-2"></label>
+            <div class="col-10">
+              <button (click)="ms.List('NEW')" class="btn btn-info btn-sm mr-1">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="page-pager">
+    <div *ngIf="ms.page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{ms.page_current}}/{{ms.page_count}}
+            (Records-{{ms.page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('LAST')"><span class="fa fa-forward"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="page-body table-responsive" style="height:430px;overflow-x: hidden; overflow-y: auto;">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>ENTITY</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of ms.RecordTables; let i = index">
+          <td (click)="ActionHandler('EDIT',rec.tab_table_name, rec.tab_name)">{{rec.tab_name}}</td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+
+  <div class="page-pager">
+    <div *ngIf="ms.page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page {{ms.page_current}}/{{ms.page_count}}
+            (Records-{{ms.page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('FIRST')"><span class="fa fa-backward"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="ms.List('LAST')"><span class="fa fa-forward"></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div *ngIf="tab == 'DETAILS'" class="page-details">
+
+  <div class="row">
+    <div class="col-sm-8 page-details">
+      <div class="form-group row">
+        <label class="col-12">{{tab_name}}</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-sm-4 page-details mr-1">
+      <div class="form-group row" style="height:500px;overflow-x: hidden; overflow-y: auto;">
+        <div class="col-12">
+          <tree-root #tree [nodes]="ms.nodes" [options]="ms.options" (toggleExpanded)="onEvent($event)"
+            (focus)="onEvent($event)" (activate)="onEvent($event)">
+          </tree-root>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-4 page-details mr-1">
+      <div class="form-group row">
+        <div class="col-12">
+          <label class="col-12">Enter Group</label>
+        </div>
+        <div class="col-12">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="category" required maxlength="30"
+            [disabled]="!menu_record.rights_add" />
+        </div>
+        <div class="col-12">
+          <button [disabled]="!menu_record.rights_add" (click)="addTreeNode('ROOT')"
+            class="btn btn-info btn-sm my-1">Add Root</button>
+          <button [disabled]="!menu_record.rights_add" (click)="addTreeNode('SUB')"
+            class="btn btn-info btn-sm ml-1 my-1">Add Sub</button>
+          <button *ngIf="menu_record.rights_delete" (click)="remove()"
+            class="btn btn-info btn-sm ml-1 my-1">Remove</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+<br />
+
+<div *ngIf="ms.InfoMessage" class="alert alert-success">
+  {{ms.InfoMessage}}
+</div>
+<div *ngIf="ms.ErrorMessage" class="alert alert-danger">
+  {{ms.ErrorMessage}}
+</div>

@@ -1,0 +1,38 @@
+<div class="loading-screen-icon" *ngIf="loading">
+  <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
+  <span>Loading...</span>
+</div>
+
+<div class="page-list">
+  <div style="height: 400px; overflow-y: scroll;">
+    <div class="page-body table-responsive">
+      <table class="table  table-hover table-sm">
+        <thead class="page-body-thead">
+          <tr>
+            <th width="10%">DATE</th>
+            <th width="10%">ACTION</th>
+            <th width="10%">USER</th>
+            <th width="10%">REFNO</th>
+            <th width="60%">REMARKS</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody">
+          <tr *ngFor="let rec of RecordList; let i = index" >
+            <td>{{rec.audit_date}}</td>
+            <td>{{rec.audit_action}}</td>
+            <td>{{rec.audit_user_code}}</td>
+            <td>{{rec.audit_refno}}</td>
+            <td>{{rec.audit_remarks}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<br>
+<div *ngIf="InfoMessage" class="alert alert-success">
+  {{InfoMessage}}
+</div>
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+  {{ErrorMessage}}
+</div>

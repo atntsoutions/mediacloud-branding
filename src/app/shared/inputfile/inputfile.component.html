@@ -1,0 +1,62 @@
+<!-- <input type="file" id="file" accept="{{filetype}}" #fileinput (change)="getFileDetails($event)"> -->
+
+
+<div class="input-group input-group-sm ">
+
+  <div class="custom-file">
+    <input type="file" class="custom-file-input" id="validatedCustomFile" accept="{{fileType}}" #fileinput
+      (change)="getFileDetails($event)">
+    <label class="form-control form-control-sm custom-file-label custom-file-label-sm"
+      for="validatedCustomFile">{{fileName}}</label>
+
+  </div>
+
+  <span  [ngStyle]="setMyStyles()"   class="btn btn-default btn-sm ml-1"  (click)="showImage(content)">
+    
+    <a  style="color:blue;"  >
+      <i class="fa fa-download" aria-hidden="true"></i>
+    </a>
+
+  </span>
+
+
+
+    <!--  
+  <div class="ml-1 mt-1" >
+
+  
+
+    <a href="{{serverFolder}}\{{fileName}}" target="_blank">
+      <i class="fa fa-download" aria-hidden="true"></i>
+    </a>
+
+  
+    <a  style="color:blue;" (click)="showImage(content)" >
+      <i class="fa fa-download" aria-hidden="true"></i>
+    </a>
+  </div>
+  -->
+
+</div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title"></h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body mx-auto">
+    <p>
+      <img class="border" src="{{serverFolder}}\{{fileName}}" height="500" width="500">
+    </p>
+  </div>
+
+  <div class="modal-footer ">
+    <div class="mx-auto">
+      <button type="button" ngbAutofocus class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </div>
+</ng-template>
