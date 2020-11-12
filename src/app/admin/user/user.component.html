@@ -111,32 +111,37 @@
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group row" >
         <label class="col-2 col-form-label  col-form-label-sm">Manager</label>
         <div class="col-10">
           <app-autocomplete2 [controlname]="'user'" [tabletype]="'USER'" [subtype]="" [displaycolumn]="'NAME'"
             [id]="Record.user_parent_id" [displaydata]="Record.user_parent_name"
+            [disabled]="role=='VENDOR'"
             (IdChanged)="Record.user_parent_id=$event" (NameChanged)="Record.user_parent_name=$event">
           </app-autocomplete2>
         </div>
       </div>
 
 
-      <div class="form-group row">
+      <div class="form-group row" >
         <label class="col-2 col-form-label  col-form-label-sm">Role</label>
         <div class="col-10">
           <app-autocomplete2 [controlname]="'ROLE'" [tabletype]="'PARAM'" [subtype]="'ROLES'" [displaycolumn]="'NAME'"
             [id]="Record.user_role_id" [displaydata]="Record.user_role_name"
+            [disabled]="role=='VENDOR'"
+            [where]="role_where"
             (IdChanged)="Record.user_role_id=$event" (NameChanged)="Record.user_role_name=$event">
           </app-autocomplete2>
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group row" >
         <label class="col-2 col-form-label  col-form-label-sm">Region</label>
         <div class="col-10">
           <app-autocomplete2 [controlname]="'REGION'" [tabletype]="'PARAM'" [subtype]="'REGION'" [displaycolumn]="'NAME'"
             [id]="Record.user_region_id" [displaydata]="Record.user_region_name"
+            [disabled]="role=='VENDOR'"
+            [where]="region_where"
             (IdChanged)="Record.user_region_id=$event" (NameChanged)="Record.user_region_name=$event">
           </app-autocomplete2>
         </div>
@@ -148,6 +153,7 @@
         <div class="col-10">
           <app-autocomplete2 [controlname]="'VENDOR'" [tabletype]="'VENDOR'" [subtype]="" [displaycolumn]="'NAME'"
             [id]="Record.user_vendor_id" [displaydata]="Record.user_vendor_name"
+            [disabled]="role=='VENDOR'"
             (IdChanged)="Record.user_vendor_id=$event" (NameChanged)="Record.user_vendor_name=$event">
           </app-autocomplete2>
         </div>

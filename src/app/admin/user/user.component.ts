@@ -40,6 +40,7 @@ export class UserComponent {
     loading = false;
     currentTab = 'LIST';
 
+    role = "";
 
     searchstring = '';
     page_count = 0;
@@ -61,9 +62,12 @@ export class UserComponent {
     // Single Record for add/edit/view details
     Record: User = new User;
 
+    NewDefaultRecord: User = new User;
+
     RecordDet: Userd[] = [];
 
-
+    role_where = '';
+    region_where = "";
 
     constructor(
         private mainService: UserService,
@@ -75,19 +79,34 @@ export class UserComponent {
         this.page_rows = 50;
         this.page_current = 0;
 
+        this.role =  this.gs.globalVariables.user_role_name;
         this.menuid = this.gs.getParameter('menuid');
         this.type = this.gs.getParameter('type');
+
         this.InitComponent();
     }
+
+
 
     InitComponent() {
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
         }
+
+        if ( this.role == "ZONE ADMIN") {
+            this.role_where = " param_name in('SALES EXECUTIVE', 'VENDOR', 'RECCE USER')";
+            this.region_where  = " param_pkid = '" + this.gs.globalVariables.user_region_id + "'"; 
+        }
+        if ( this.role == "VENDOR")
+            this.role_where = " param_name in('RECCE USER')";
+
+        if( this.role == "VENDOR")
+            this.NewUserDefault();
         this.List("NEW");
         this.currentTab = 'LIST';
     }
+
 
     // Init Will be called After executing Constructor
     ngOnInit() {
@@ -211,7 +230,49 @@ export class UserComponent {
 
         this.showBranches = false;
 
+        if ( this.role == "VENDOR") {
+
+            this.Record.user_parent_id = this.gs.globalVariables.user_pkid;
+            this.Record.user_parent_name = this.gs.globalVariables.user_name;
+
+            this.Record.user_role_id = this.NewDefaultRecord.user_role_id ;
+            this.Record.user_role_name = this.NewDefaultRecord.user_role_name ;
+            this.Record.user_role_rights_id = this.NewDefaultRecord.user_role_id ;
+
+            this.Record.user_region_id = this.NewDefaultRecord.user_region_id ;
+            this.Record.user_region_name = this.NewDefaultRecord.user_region_name ;
+
+            this.Record.user_vendor_id = this.NewDefaultRecord.user_vendor_id ;
+            this.Record.user_vendor_name = this.NewDefaultRecord.user_vendor_name ;
+
+        }
+
     }
+
+
+    NewUserDefault() {
+    
+        let SearchData = {
+            pkid: this.gs.globalVariables.user_pkid,
+            comp_code: this.gs.globalVariables.comp_code,
+            role_name: this.role,
+            comp_id: this.gs.globalVariables.comp_pkid
+        };
+
+        this.ErrorMessage = '';
+        this.mainService.NewUserDefault(SearchData)
+            .subscribe(response => {
+                this.NewDefaultRecord = response.record;
+
+            },
+            error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+            });
+    }
+
+
+
 
     // Load a single Record for VIEW/EDIT
     GetRecord(Id: string) {
@@ -225,6 +286,9 @@ export class UserComponent {
         this.ErrorMessage = '';
         this.mainService.GetRecord(SearchData)
             .subscribe(response => {
+                
+
+
                 this.loading = false;
                 this.LoadData(response.record);
                 this.RecordDet = response.recorddet;
@@ -232,6 +296,8 @@ export class UserComponent {
                     this.showBranches = true;
                 if (this.menu_record.rights_admin == false)
                     this.showBranches = false;
+
+
             },
                 error => {
                     this.loading = false;

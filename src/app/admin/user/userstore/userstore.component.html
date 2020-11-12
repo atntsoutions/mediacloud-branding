@@ -39,6 +39,7 @@
       <thead class="page-body-thead">
         <tr>
           <th>SELECTE/DESELECT</th>
+          <th>REGION</th>
           <th>CODE</th>
           <th>NAME</th>
           <th>ADDRESS</th>
@@ -48,6 +49,7 @@
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
         <tr>
           <td> <input type="checkbox"   [(ngModel)]="rec.selected" (change)="Save(rec)"></td>
+          <td (click)="ActionHandler('EDIT',rec.comp_pkid)">{{rec.comp_region_name}}</td>
           <td (click)="ActionHandler('EDIT',rec.comp_pkid)">{{rec.comp_code}}</td>
           <td (click)="ActionHandler('EDIT',rec.comp_pkid)">{{rec.comp_name}}</td>
           <td (click)="ActionHandler('EDIT',rec.comp_pkid)">{{rec.comp_address1}}</td>

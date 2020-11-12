@@ -145,6 +145,7 @@
             <div class="col-8">
               <app-autocomplete2 [controlname]="'region'" [tabletype]="'PARAM'" [subtype]="'REGION'"
                 [displaycolumn]="'NAME'" [id]="Record.comp_region_id" [displaydata]="Record.comp_region_name"
+                [where]="region_where"
                 (IdChanged)="Record.comp_region_id=$event" (NameChanged)="Record.comp_region_name=$event">
               </app-autocomplete2>
             </div>

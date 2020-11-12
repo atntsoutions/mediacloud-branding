@@ -121,6 +121,12 @@ export class UserStoreComponent {
             page_rowcount: this.page_rowcount,
             user_pkid: this.gs.globalVariables.user_pkid,
             userid: this.pkid,
+            user_admin : this.gs.globalVariables.user_admin,
+            vendor_id : this.gs.globalVariables.user_vendor_id,
+            region_id : this.gs.globalVariables.user_region_id,
+            role_id : this.gs.globalVariables.user_role_id,      
+            role_name : this.gs.globalVariables.user_role_name,
+            role_rights_id : this.gs.globalVariables.user_role_rights_id,                  
         };
 
         this.ErrorMessage = '';

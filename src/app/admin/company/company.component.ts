@@ -40,6 +40,8 @@ export class CompanyComponent {
 
   ErrorMessage = "";
 
+  region_where = "";
+
   mode = '';
   pkid = '';
 
@@ -74,6 +76,9 @@ export class CompanyComponent {
       this.title = this.menu_record.menu_name;
     }
 
+    if (this.gs.globalVariables.user_role_name == "ZONE ADMIN")
+      this.region_where  = " param_pkid = '" + this.gs.globalVariables.user_region_id + "'"; 
+      
     this.List("NEW");
     this.currentTab = 'LIST';
   }
@@ -185,6 +190,7 @@ export class CompanyComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       rights_admin : this.menu_record.rights_admin,
+      user_pkid : this.gs.globalVariables.user_pkid,
       user_admin : this.gs.globalVariables.user_admin,
       vendor_id : this.gs.globalVariables.user_vendor_id,
       region_id : this.gs.globalVariables.user_region_id,

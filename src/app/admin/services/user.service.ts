@@ -27,8 +27,11 @@ export class UserService {
     
 
     GetRecord(SearchData : any) {
-        
       return this.http2.post<any>(this.gs.baseUrl + '/api/Admin/User/GetRecord', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+    NewUserDefault(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Admin/User/NewUserDefault', SearchData, this.gs.headerparam2('authorized'));
     }
 
     Save(Record: User) {
