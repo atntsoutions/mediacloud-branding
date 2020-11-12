@@ -10,15 +10,12 @@ import { Store } from '@ngrx/store';
 import { PimService } from 'src/app/pim/services/pim.service';
 import { PimSpotService } from 'src/app/pim/services/pimspot.service';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
-
   // login screen 2
-
   errorMessage: string;
   ErrorExternalLogin: string = '';
   errorMessageVersion: string = '1.118';
