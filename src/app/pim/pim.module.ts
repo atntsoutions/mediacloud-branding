@@ -6,6 +6,7 @@ import { PimGrpComponent } from './group/pimgrp.component';
 import { PimDocComponent } from './main/pimdoc.component';
 import { PimSpotComponent } from './spot/pimspot.component';
 import { PimSpotDetComponent } from './spot/pimspotdet.component';
+import { PimJobComponent } from './spot/pimjob.component';
 
 
 
@@ -19,6 +20,7 @@ import { PimSpotDetComponent } from './spot/pimspotdet.component';
     PimDocComponent,
     PimSpotComponent,
     PimSpotDetComponent,
+    PimJobComponent,
   ],
   providers: [
   ],
