@@ -265,8 +265,8 @@ export class AutoComplete2Component {
       this.inputdata.col7 = '';
 
       this.displaydata = '';
-      this.parentid = '';
-      this._id = '';
+      //this.parentid = '';
+      //this._id = '';
 
     }
     else {
@@ -282,10 +282,8 @@ export class AutoComplete2Component {
       if (this._displaycolumn == "NAME")
         this._displaydata = _Record.name;
 
-      this._id = _Record.id;
-
-
-      this._parentid = _Record.parentid;
+      //this._id = _Record.id;
+      //this._parentid = _Record.parentid;
 
 
       this.inputdata.col1 = _Record.col1;

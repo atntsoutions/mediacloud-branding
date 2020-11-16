@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 
 import { PimService } from 'src/app/pim/services/pim.service';
 import { PimSpotService } from 'src/app/pim/services/pimspot.service';
+import { PimJobService } from 'src/app/pim/services/pimjob.service';
 
 @Component({
   selector: 'app-login',
@@ -45,6 +46,7 @@ export class LoginComponent {
     private loginservice: LoginService,
     private pimsrv: PimService,
     private spotService : PimSpotService,
+    private jobService : PimJobService,
 
   ) {
 
@@ -59,6 +61,7 @@ export class LoginComponent {
   InitAllService() {
     this.pimsrv.init();
     this.spotService.resetData();
+    this.jobService.resetData();
   }
 
 

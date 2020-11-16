@@ -50,7 +50,11 @@ export class PimJobComponent {
   urlid: string;
   data: pim_spot_model;
 
+  vendor_region_where = "";
+
   bApproval = false;
+
+  user_pkid = '';
 
   constructor(
     private modalService: NgbModal,
@@ -84,6 +88,13 @@ export class PimJobComponent {
         this.bApproval = true;
       }
     }
+
+    this.user_pkid = this.gs.globalVariables.user_pkid;  
+    
+    if (this.gs.globalVariables.user_role_name == "ZONE ADMIN" || this.gs.globalVariables.user_role_name == "SALES EXECUTIVE")
+      this.vendor_region_where  = " a.comp_region_id = '" + this.gs.globalVariables.user_region_id + "'";
+
+
 
     this.data = this.ms.init(this.urlid);
 

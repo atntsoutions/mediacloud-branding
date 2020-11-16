@@ -51,6 +51,8 @@ export class PimSpotComponent {
   urlid: string;
   data: pim_spot_model;
 
+  
+
   bApproval = false;
 
   constructor(
@@ -85,6 +87,7 @@ export class PimSpotComponent {
         this.bApproval = true;
       }
     }
+
 
     this.data = this.ms.init(this.urlid);
 
