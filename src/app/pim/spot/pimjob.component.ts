@@ -5,7 +5,6 @@ import { GlobalService } from '../../core/services/global.service';
 
 import { SearchTable } from '../../shared/models/searchtable';
 
-
 import { PimJobService } from '../services/pimjob.service';
 import { pim_spot, pim_spotd, pim_spot_model } from '../models/pim_spot';
 
@@ -171,8 +170,6 @@ export class PimJobComponent {
     this.ms.getRecord(SearchData)
       .subscribe(response => {
         this.data.Record = response.record;
-        this.data.RecordDet = response.recorddet;
-
         this.data.mode = "EDIT";
         this.resetRights();
       },
@@ -205,6 +202,8 @@ export class PimJobComponent {
     this.data.Record.spot_executive_name = "";
     this.data.Record.spot_store_contact_name = "";
     this.data.Record.spot_store_contact_tel= "";
+
+    this.data.Record.spot_job_remarks = "";
 
     this.data.Record.spot_store_view = "";
     this.data.Record.spot_store_view_file = null;
@@ -255,12 +254,6 @@ export class PimJobComponent {
     
     frmData.append("record", JSON.stringify(this.data.Record));
 
-    if (this.data.Record.spot_store_view_file != null && this.data.Record.spot_store_view != "")
-        frmData.append("storeview", this.data.Record.spot_store_view_file);
-
-    if (this.data.Record.spot_installation_view_file != null && this.data.Record.spot_installation_view != "")
-        frmData.append("installationview", this.data.Record.spot_installation_view_file);
-
 
     this.ms.Save(frmData).subscribe(
       response => {
@@ -275,6 +268,7 @@ export class PimJobComponent {
           const item = this.data.RecordList.find(rec => rec.spot_pkid == this.data.Record.spot_pkid);
           if (item != null) {
             item.spot_store_name = this.data.Record.spot_store_name;
+            item.spot_job_remarks = this.data.Record.spot_job_remarks;
           }
 
         }

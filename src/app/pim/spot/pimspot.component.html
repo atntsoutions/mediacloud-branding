@@ -5,8 +5,7 @@
   <div class="col">
     <label>{{title}}</label>
     <button (click)="ActionHandler('LIST','')" class="btn btn-info btn-sm mx-1">List</button>
-    <button (click)="ActionHandler('ADD','')" class="btn btn-info btn-sm mr-1"
-      *ngIf="menu_record.rights_add">New</button>
+    <!-- <button (click)="ActionHandler('ADD','')" class="btn btn-info btn-sm mr-1" *ngIf="menu_record.rights_add">New</button> -->
     <button class="btn btn-info btn-sm mx-1" (click)="Close()">Close</button>
   </div>
 </div>
@@ -63,7 +62,7 @@
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
-          <th>CF#</th>
+          <th>Job#</th>
           <th>DATE</th>
           
           <th>REGION</th>
@@ -160,7 +159,7 @@
     <div class="col-sm-6 border">
 
       <div class="form-group row mt-1">
-        <label class="col-4 col-form-label col-form-label-sm">CF#</label>
+        <label class="col-4 col-form-label col-form-label-sm">Job#</label>
         <div class="col-8">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.spot_slno" disabled />
         </div>
@@ -170,7 +169,7 @@
       <div class="form-group row">
         <label class="col-4 col-form-label  col-form-label-sm">Date</label>
         <div class="col-8">
-          <app-date [inputdate]="data.Record.spot_date" (ValueChanged)="data.Record.spot_date=$event"></app-date>
+          <app-date [disabled]=true [inputdate]="data.Record.spot_date" (ValueChanged)="data.Record.spot_date=$event"></app-date>
         </div>
       </div>
 
@@ -180,6 +179,7 @@
           <app-autocomplete2 [controlname]="'store'" [tabletype]="'STORE'" [subtype]=""
             [parentid]="gs.globalVariables.user_pkid" [parentmandatory]="false" [displaycolumn]="'NAME'"
             [id]="data.Record.spot_store_id" [displaydata]="data.Record.spot_store_name"
+            [disabled]=true
             (IdChanged)="data.Record.spot_store_id=$event" (NameChanged)="data.Record.spot_store_name=$event">
           </app-autocomplete2>
         </div>
@@ -191,6 +191,7 @@
           <app-autocomplete2 [controlname]="'vendor'" [tabletype]="'VENDOR'" [subtype]=""
             [parentid]="gs.globalVariables.user_pkid" [parentmandatory]="false" [displaycolumn]="'NAME'"
             [id]="data.Record.spot_vendor_id" [displaydata]="data.Record.spot_vendor_name"
+            [disabled]=true
             (IdChanged)="data.Record.spot_vendor_id=$event" (NameChanged)="data.Record.spot_vendor_name=$event">
           </app-autocomplete2>
         </div>
@@ -263,9 +264,6 @@
         <div class="offset-4 col-8">
           <button (click)="Save()" class="btn btn-primary btn-sm mr-1" *ngIf="canSave">Save</button>
           <button (click)="Print()" class="btn btn-primary btn-sm mr-1" *ngIf="data.mode == 'EDIT'">Print</button>
-          
-          <App-Approval [id]="data.pkid" *ngIf="data.mode == 'EDIT' && bApproval"></App-Approval>
-
           <button (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm ml-1">Return</button>
         </div>
       </div>

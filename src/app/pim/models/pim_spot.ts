@@ -22,6 +22,8 @@ export class pim_spot {
     spot_store_contact_name : string;
     spot_store_contact_tel : string;
 
+    spot_job_remarks : string;
+
     spot_server_folder : string;
 
     spot_store_view : string;
