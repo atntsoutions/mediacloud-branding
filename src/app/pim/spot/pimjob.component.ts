@@ -50,6 +50,7 @@ export class PimJobComponent {
   urlid: string;
   data: pim_spot_model;
 
+  store_region_where = "";
   vendor_region_where = "";
 
   bApproval = false;
@@ -91,8 +92,10 @@ export class PimJobComponent {
 
     this.user_pkid = this.gs.globalVariables.user_pkid;  
     
-    if (this.gs.globalVariables.user_role_name == "ZONE ADMIN" || this.gs.globalVariables.user_role_name == "SALES EXECUTIVE")
+    if (this.gs.globalVariables.user_role_name == "ZONE ADMIN" || this.gs.globalVariables.user_role_name == "SALES EXECUTIVE") {
+      this.store_region_where  = " a.comp_region_id = '" + this.gs.globalVariables.user_region_id + "'";
       this.vendor_region_where  = " a.comp_region_id = '" + this.gs.globalVariables.user_region_id + "'";
+    }
 
 
 

@@ -176,8 +176,9 @@
         <label class="col-4 col-form-label  col-form-label-sm">Store</label>
         <div class="col-8">
           <app-autocomplete2 [controlname]="'store'" [tabletype]="'STORE'" [subtype]=""
-            [parentid]="user_pkid" [parentmandatory]="true" [displaycolumn]="'NAME'"
+            [parentid]="user_pkid" [parentmandatory]="false" [displaycolumn]="'NAME'"
             [id]="data.Record.spot_store_id" [displaydata]="data.Record.spot_store_name"
+            [where]="store_region_where"            
             (IdChanged)="data.Record.spot_store_id=$event" (NameChanged)="data.Record.spot_store_name=$event">
           </app-autocomplete2>
         </div>
