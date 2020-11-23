@@ -20,11 +20,11 @@ export class LoginComponent {
   // login screen 2
   errorMessage: string;
   ErrorExternalLogin: string = '';
-  errorMessageVersion: string = '1.120';
-  software_version_string: string = '1.120';
+  errorMessageVersion: string = '1.121';
+  software_version_string: string = '1.121';
 
-  username: string = 'ADMIN';
-  password: string = 'ADMIN';
+  username: string = '';
+  password: string = '';
 
   server_software_version_string: string = '';
   showloginbutton: boolean = true;
