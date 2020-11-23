@@ -17,8 +17,8 @@
         <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
       <div class="col">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="showall">
-        <label class="form-check-label" for="exampleCheck1">Show All</label>
+        <input class ="mr-1" type="checkbox"  [(ngModel)]="showall" />
+        <span>Locked Users</span>
       </div>
     </div>
     <div class="row">
@@ -77,7 +77,7 @@
           <td>{{rec.user_role_name}}</td>
           <td>{{rec.user_region_name}}</td>
           <td>{{rec.user_vendor_name}}</td>
-          <td>{{rec.user_islocked  | yesno }}</td>
+          <td>{{rec.user_islocked  | yesNo }}</td>
         </tr>
       </tbody>
     </table>
@@ -129,6 +129,16 @@
         </div>
       </div>
 
+
+      <div class="form-group row py-1" >
+        <label class="col-2 col-form-label  col-form-label-sm">Status</label>
+        <div class="col-10">
+          <input class ="mr-1" type="checkbox"  [(ngModel)]="Record.user_islocked" />
+          <span>Locked</span>
+        </div>
+      </div>      
+
+
       <div class="form-group row" >
         <label class="col-2 col-form-label  col-form-label-sm">Manager</label>
         <div class="col-10">
@@ -167,17 +177,6 @@
 
 
 
-      <div class="form-group row" >
-        <label class="form-check-label" for="exampleCheck1">Locked</label>
-        <div class="col-10">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="Record.user_islocked">
-        </div>
-      </div>
-
-
-
-      <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="showall">
-      <label class="form-check-label" for="exampleCheck1">Show All</label>
 
 
       <div class="form-group row">
@@ -200,6 +199,11 @@
             maxlength="100" />
         </div>
       </div>
+
+
+
+
+
 
     </div>
 
