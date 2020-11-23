@@ -17,9 +17,26 @@
         <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
       <div class="col">
-        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="showall">
+        <label class="form-check-label" for="exampleCheck1">Show All</label>
       </div>
     </div>
+    <div class="row">
+      <label class="col-2">Role</label>
+      <div class="col">
+        <select class="form-control form-control-sm" [(ngModel)]="mrole">
+          <option value = "ALL">ALL</option>
+          <option *ngIf="bsadmin" value = "SUPER ADMIN">SUPER ADMIN</option>
+          <option *ngIf="bzadmin" value = "ZONE ADMIN">ZONE ADMIN</option>
+          <option *ngIf="bsman"   value = "SALES EXECUTIVE">SALES EXECUIVE</option>          
+          <option *ngIf="bvendor" value = "VENDOR">VENDOR</option>          
+          <option *ngIf="brecce" value = "RECCE USER">RECCE USER</option>
+        </select>
+      </div>
+      <div class="col">
+        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+      </div>
+    </div>    
   </div>
 
   <div class="page-pager">
@@ -48,7 +65,7 @@
           <th>ROLE</th>
           <th>REGION</th>
           <th>VENDOR</th>
-
+          <th>LOCKED</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -60,6 +77,7 @@
           <td>{{rec.user_role_name}}</td>
           <td>{{rec.user_region_name}}</td>
           <td>{{rec.user_vendor_name}}</td>
+          <td>{{rec.user_islocked  | yesno }}</td>
         </tr>
       </tbody>
     </table>
@@ -146,6 +164,20 @@
           </app-autocomplete2>
         </div>
       </div>
+
+
+
+      <div class="form-group row" >
+        <label class="form-check-label" for="exampleCheck1">Locked</label>
+        <div class="col-10">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="Record.user_islocked">
+        </div>
+      </div>
+
+
+
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="showall">
+      <label class="form-check-label" for="exampleCheck1">Show All</label>
 
 
       <div class="form-group row">

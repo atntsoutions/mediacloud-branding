@@ -14,6 +14,7 @@ import { Companym } from '../../core/models/company';
 
 
 
+
 @Component({
     selector: 'app-user',
     templateUrl: './user.component.html',
@@ -42,12 +43,19 @@ export class UserComponent {
 
     role = "";
 
+    showall =false;
+    mrole = "ALL";
     searchstring = '';
     page_count = 0;
     page_current = 0;
     page_rows = 0;
     page_rowcount = 0;
 
+    bsadmin = false;
+    bzadmin = false;
+    bsman = false;
+    bvendor = false;
+    brecce = false;
 
     sub: any;
     urlid: string;
@@ -94,12 +102,27 @@ export class UserComponent {
             this.title = this.menu_record.menu_name;
         }
 
+        this.bsadmin =true; this.bzadmin =true; this.bsman =true; this.bvendor =true; this.brecce = true;
+
+        if ( this.role == "SUPER ADMIN") {
+            this.bsadmin =true; this.bzadmin =true; this.bsman =true; this.bvendor =true; this.brecce = true;
+        }
+
         if ( this.role == "ZONE ADMIN") {
+            this.bsadmin =false; this.bzadmin =false; this.bsman =true; this.bvendor =true; this.brecce = true;
             this.role_where = " param_name in('SALES EXECUTIVE', 'VENDOR', 'RECCE USER')";
             this.region_where  = " param_pkid = '" + this.gs.globalVariables.user_region_id + "'"; 
         }
-        if ( this.role == "VENDOR")
+        if ( this.role == "SALES EXECUTIVE") {
+            this.bsadmin =false; this.bzadmin =false; this.bsman =false; this.bvendor =true; this.brecce = true;
+        }
+        if ( this.role == "VENDOR"){
+            this.bsadmin =false; this.bzadmin =false; this.bsman =false; this.bvendor =false; this.brecce = true;
             this.role_where = " param_name in('RECCE USER')";
+        }
+        if ( this.role == "RECCE USER") {
+            this.bsadmin =false; this.bzadmin =false; this.bsman =false; this.bvendor =false; this.brecce = false;
+        }
 
         if( this.role == "VENDOR")
             this.NewUserDefault();
@@ -161,6 +184,8 @@ export class UserComponent {
         let SearchData = {
             type: _type,
             searchstring: this.searchstring.toUpperCase(),
+            mrole: this.mrole,
+            showall : this.showall,
             comp_code: this.gs.globalVariables.comp_code,
             page_count: this.page_count,
             page_current: this.page_current,
@@ -223,6 +248,7 @@ export class UserComponent {
         this.Record.user_vendor_id = '';
         this.Record.user_vendor_name = '';
 
+        this.Record.user_islocked =false;
 
         this.Record.rec_mode = this.mode;
         this.Record.user_branch_user = false;

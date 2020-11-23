@@ -34,6 +34,8 @@ export class User {
     user_region_id: string;
     user_region_name: string;
 
+    user_islocked: boolean;
+
 
     rec_mode: string;
 

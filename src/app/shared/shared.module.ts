@@ -49,6 +49,7 @@ import { InputBoxNumberComponent } from './inputnumber/inputboxnumber.component'
 import { InputFileComponent } from './inputfile/inputfile.component';
 import { ReportComponent } from './report/report.component';
 import { ApprovalComponent } from './approval/approval.component';
+import { YesNoPipe } from './yesnopipe/yes-no.pipe';
 
 
 
@@ -83,7 +84,8 @@ import { ApprovalComponent } from './approval/approval.component';
     InputBoxNumberComponent,
     InputFileComponent,
     ReportComponent,
-    ApprovalComponent
+    ApprovalComponent,
+    YesNoPipe
   ],
   exports: [
     CommonModule,
@@ -112,7 +114,8 @@ import { ApprovalComponent } from './approval/approval.component';
     InputBoxNumberComponent,
     InputFileComponent,
     ReportComponent,
-    ApprovalComponent
+    ApprovalComponent,
+    YesNoPipe
   ],
   providers: [
     AlertService,

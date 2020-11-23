@@ -72,7 +72,7 @@ import { RouteReuseStrategy } from '@angular/router';
         LoginComponent,
         LoginBranchComponent,
         ContactComponent,
-        LoadingScreenComponent
+        LoadingScreenComponent,
     ],
     providers: [
         GlobalService,
