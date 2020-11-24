@@ -23,8 +23,8 @@ export class LoginComponent {
   errorMessageVersion: string = '1.122';
   software_version_string: string = '1.122';
 
-  username: string = '';
-  password: string = '';
+  username: string = 'admin';
+  password: string = 'admin';
 
   server_software_version_string: string = '';
   showloginbutton: boolean = true;
