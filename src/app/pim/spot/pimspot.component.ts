@@ -8,6 +8,8 @@ import { SearchTable } from '../../shared/models/searchtable';
 
 import { PimSpotService } from '../services/pimspot.service';
 import { pim_spot, pim_spotd, pim_spot_model } from '../models/pim_spot';
+import { timeStamp } from 'console';
+import { Recoverable } from 'repl';
 
 
 @Component({
@@ -463,11 +465,17 @@ export class PimSpotComponent {
 
   showRecce(content : any, rec : pim_spot ){
     this.edit_recce_id = rec.spot_pkid ;
-    //rec.show_window = !rec.show_window;
     this.modalService.open(content, { centered: true });
   }
 
 
+  modalCallbackEvent(event: any) {
+    let rec  = this.data.RecordList.find( rec  => rec.spot_pkid == event.parentid) as pim_spot;
+    if (rec) {
+      rec.spot_recce_name = event.name;
+    }
+    this.modalService.dismissAll(null);
+  }
 
 
 }

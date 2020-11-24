@@ -40,6 +40,8 @@ export class PimRecceComponent {
   }
 
 
+  @Output() modalCallbackEvent = new EventEmitter<{ parentid : string , id : string, name : string }>();
+
 
   report_title: string = '';
   report_url: string = '';
@@ -126,16 +128,12 @@ export class PimRecceComponent {
   GetRecord(Id: string) {
 
 
-    alert(Id);
-
     let SearchData = {
-      pkid: this.parentid,
+      pkid: Id,
       comp_code : this.gs.globalVariables.comp_code
     };
 
 
-    
-    
 
     this.ms.getRecord_recce_user(SearchData)
       .subscribe(response => {
@@ -168,12 +166,14 @@ export class PimRecceComponent {
 
     //if (!this.allvalid())
     //return;
-    
+
+    this.Record.spot_pkid = this._parentid;
+    this.Record.spot_recce_id = this.Record.spot_recce_id;
     this.Record._globalvariables = this.gs.globalVariables;
 
     this.ms.Save_recce_user(this.Record).subscribe(
       response => {
-        alert('Save Complete');
+        this.modalCallbackEvent.emit({ parentid : this._parentid, id: this.Record.spot_recce_id, name : this.Record.spot_recce_name });
       },
       error => {
         alert(this.gs.getError(error));

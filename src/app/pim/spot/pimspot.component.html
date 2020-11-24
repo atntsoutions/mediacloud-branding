@@ -68,7 +68,7 @@
           <th>REGION</th>
           <th>STORE</th>
           <th>VENDOR</th>
-
+          <th>RECCE</th>
           <th>EXECUTIVE</th>
           <th>STORE-CONTACT</th>
           <th>STORE-TEL</th>
@@ -81,7 +81,7 @@
           <th>CREATED-BY</th>
           <th>CREATED-DATE</th>
 
-          <th>EDIT-RECCE</th>
+          <th  *ngIf="gs.globalVariables.user_role_name=='VENDOR'" >RECCE-USER</th>
 
           <th *ngIf="menu_record.rights_delete">DELETE</th>          
 
@@ -97,6 +97,7 @@
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_region_name}}</td>
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_store_name}}</td>
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_vendor_name}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_recce_name}}</td>
 
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_executive_name}}</td>
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_store_contact_name}}</td>
@@ -110,9 +111,9 @@
 
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.rec_created_by}}</td>
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.rec_created_date}}</td>
-          <td (click)="showRecce(content,rec)">EDIT</td>
+          <td *ngIf="gs.globalVariables.user_role_name=='VENDOR'" (click)="showRecce(content,rec)" class="hlink">EDIT</td>
           <td *ngIf="menu_record.rights_delete"><i (click)="remove(rec)" class="fa fa-lg fa-trash" aria-hidden="true"></i></td>          
-          
+
         </tr>
 
       </tbody>
@@ -344,7 +345,7 @@
 
   <div class="modal-body mx-auto">
     <p>
-      <app-pimrecce [parentid]="edit_recce_id" ></app-pimrecce>
+      <app-pimrecce [parentid]="edit_recce_id" (modalCallbackEvent)="modalCallbackEvent($event)"  ></app-pimrecce>
     </p>
   </div>
 
