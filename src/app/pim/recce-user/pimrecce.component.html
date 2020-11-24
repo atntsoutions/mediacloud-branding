@@ -1,0 +1,32 @@
+
+
+<div class="my-1">
+
+  <div class="row border mx-auto">
+
+    <div class="col-sm-12 border py-1">
+
+      <div class="form-group row">
+        <label class="col-2 col-form-label  col-form-label-sm">Recce</label>
+        <div class="col-8">
+          <app-autocomplete2 [controlname]="'recce'" [tabletype]="'RECCE USER'" [subtype]=""
+            [displaycolumn]="'NAME'"
+            [id]="Record.spot_recce_id" [displaydata]="Record.spot_recce_name"
+            [where]="vendor_where"
+            (IdChanged)="Record.spot_recce_id=$event" (NameChanged)="Record.spot_recce_name=$event">
+          </app-autocomplete2>
+        </div>
+
+        <div class ="col-2">
+          <button (click)="Save()" class="btn btn-primary btn-sm mr-1" >Save</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  
+
+
+</div>

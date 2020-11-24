@@ -81,15 +81,16 @@
           <th>CREATED-BY</th>
           <th>CREATED-DATE</th>
 
+          <th>EDIT-RECCE</th>
 
           <th *ngIf="menu_record.rights_delete">DELETE</th>          
 
         </tr>
       </thead>
-      <tbody class="page-body-tbody">
+      <tbody class="page-body-tbody" *ngFor="let rec of data.RecordList; let i = index">
 
 
-        <tr *ngFor="let rec of data.RecordList; let i = index">
+        <tr >
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_slno}}</td>
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_date }}</td>
           
@@ -109,7 +110,7 @@
 
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.rec_created_by}}</td>
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.rec_created_date}}</td>
-
+          <td (click)="showRecce(content,rec)">EDIT</td>
           <td *ngIf="menu_record.rights_delete"><i (click)="remove(rec)" class="fa fa-lg fa-trash" aria-hidden="true"></i></td>          
           
         </tr>
@@ -166,14 +167,14 @@
       </div>
 
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label  col-form-label-sm">Date</label>
         <div class="col-8">
           <app-date [disabled]=true [inputdate]="data.Record.spot_date" (ValueChanged)="data.Record.spot_date=$event"></app-date>
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label  col-form-label-sm">Store</label>
         <div class="col-8">
           <app-autocomplete2 [controlname]="'store'" [tabletype]="'STORE'" [subtype]=""
@@ -185,7 +186,7 @@
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label  col-form-label-sm">Vendor</label>
         <div class="col-8">
           <app-autocomplete2 [controlname]="'vendor'" [tabletype]="'VENDOR'" [subtype]=""
@@ -241,7 +242,7 @@
 
 
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label col-form-label-sm">Installation Report</label>
         <div class="col-8">
           <InputFile [fileType]="''" [fileName]="data.Record.spot_installation_view"
@@ -317,6 +318,10 @@
 
 
 
+
+
+
+
 <br />
 
 <div *ngIf="data.InfoMessage" class="alert alert-success">
@@ -325,5 +330,28 @@
 <div *ngIf="data.ErrorMessage" class="alert alert-danger">
   {{data.ErrorMessage}}
 </div>
+  
 
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title"></h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body mx-auto">
+    <p>
+      <app-pimrecce [parentid]="edit_recce_id" ></app-pimrecce>
+    </p>
+  </div>
+
+  <div class="modal-footer ">
+    <div class="mx-auto">
+      <button type="button" ngbAutofocus class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </div>
+</ng-template>
 

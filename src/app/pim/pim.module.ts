@@ -7,6 +7,7 @@ import { PimDocComponent } from './main/pimdoc.component';
 import { PimSpotComponent } from './spot/pimspot.component';
 import { PimSpotDetComponent } from './spot/pimspotdet.component';
 import { PimJobComponent } from './spot/pimjob.component';
+import { PimRecceComponent } from './recce-user/pimrecce.component';
 
 
 
@@ -21,6 +22,7 @@ import { PimJobComponent } from './spot/pimjob.component';
     PimSpotComponent,
     PimSpotDetComponent,
     PimJobComponent,
+    PimRecceComponent
   ],
   providers: [
   ],

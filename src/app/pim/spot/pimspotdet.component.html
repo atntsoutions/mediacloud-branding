@@ -6,7 +6,7 @@
     
     <div class="col-sm-6 border">
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label col-form-label-sm">SL#</label>
         <div class="col-8">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_slno" disabled />
@@ -14,7 +14,7 @@
       </div>
 
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label col-form-label-sm">Spot Name</label>
         <div class="col-8">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_name" required
@@ -22,7 +22,7 @@
         </div>
       </div>
       
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label col-form-label-sm">Unit</label>
         <div class="col-8">
           <select class="form-control form-control-sm" [(ngModel)]="Record.spotd_uom">
@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label col-form-label-sm">Width</label>
         <div class="col-8">
           <InputBoxNumber [(inputModel)]="Record.spotd_wd" [maxlength]="15" [dec]="3">
@@ -40,7 +40,7 @@
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label col-form-label-sm">Height</label>
         <div class="col-8">
           <InputBoxNumber [(inputModel)]="Record.spotd_ht" [maxlength]="15" [dec]="3">
@@ -50,7 +50,7 @@
 
 
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label  col-form-label-sm">ArtWork</label>
         <div class="col-8">
           <app-autocomplete2 [controlname]="'ARTWORK'" [tabletype]="'PARAM'" [subtype]="'ARTWORK'"
@@ -63,7 +63,7 @@
       </div>
 
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label  col-form-label-sm">Product</label>
         <div class="col-8">
           <app-autocomplete2 [controlname]="'PRODUCT'" [tabletype]="'PARAM'" [subtype]="'PRODUCT'"
@@ -76,7 +76,7 @@
       </div>
 
 
-      <div class="form-group row" >
+      <div class="form-group row mt-1"  >
         <label class="col-4 col-form-label col-form-label-sm">Close View</label>
         <div class="col-8">
           <InputFile 
@@ -90,7 +90,7 @@
         </div>
       </div>
 
-      <div class="form-group row" >
+      <div class="form-group row mt-1" >
         <label class="col-4 col-form-label col-form-label-sm">Long View</label>
         <div class="col-8">
           <InputFile 
@@ -104,7 +104,7 @@
         </div>
       </div>
 
-      <div class="form-group row" >
+      <div class="form-group row mt-1"  >
         <label class="col-4 col-form-label col-form-label-sm">Final View</label>
         <div class="col-8">
           <InputFile 

@@ -165,14 +165,14 @@
       </div>
 
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label  col-form-label-sm">Date</label>
         <div class="col-8">
           <app-date [inputdate]="data.Record.spot_date" (ValueChanged)="data.Record.spot_date=$event"></app-date>
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label  col-form-label-sm">Store</label>
         <div class="col-8">
           <app-autocomplete2 [controlname]="'store'" [tabletype]="'STORE'" [subtype]=""
@@ -184,7 +184,7 @@
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group row mt-1">
         <label class="col-4 col-form-label  col-form-label-sm">Vendor</label>
         <div class="col-8">
           <app-autocomplete2 [controlname]="'vendor'" [tabletype]="'VENDOR'" [subtype]=""

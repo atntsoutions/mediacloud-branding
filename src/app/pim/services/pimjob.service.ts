@@ -69,5 +69,15 @@ export class PimJobService {
   }
 
 
+  public getRecord_recce_user(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Pim/Job/GetRecord_recce_user', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  public Save_recce_user(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Pim/Job/Save_recce_user', SearchData,  this.gs.headerparam2('authorized'));
+  }
+
+
+
 }
 

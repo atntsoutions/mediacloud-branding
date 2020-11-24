@@ -80,7 +80,8 @@ export class InputFileComponent {
           'margin-left': '0px',
           'border-radius': '0px',
           'display': 'inline-block' ,
-          'height': '30px'          
+          'height': '31px',
+          'width': '24px'          
         };
         return styles;
       }

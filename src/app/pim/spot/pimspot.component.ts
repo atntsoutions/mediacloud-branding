@@ -30,6 +30,9 @@ export class PimSpotComponent {
   @Input() showHeading: boolean = true;
 
 
+  edit_recce_id = '';
+  show_recce_window = false;
+
   report_title: string = '';
   report_url: string = '';
   report_searchdata: any = {};
@@ -160,6 +163,8 @@ export class PimSpotComponent {
     }
 
 
+
+
   }
 
   // Load a single Record for VIEW/EDIT
@@ -183,6 +188,7 @@ export class PimSpotComponent {
           this.data.ErrorMessage = this.gs.getError(error);
         });
   }
+
 
 
   
@@ -453,6 +459,14 @@ export class PimSpotComponent {
   callbackevent(event: any) {
     this.data.tab = 'DETAILS';
   }
+
+
+  showRecce(content : any, rec : pim_spot ){
+    this.edit_recce_id = rec.spot_pkid ;
+    //rec.show_window = !rec.show_window;
+    this.modalService.open(content, { centered: true });
+  }
+
 
 
 

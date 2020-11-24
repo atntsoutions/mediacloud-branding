@@ -1,6 +1,5 @@
 <!-- <input type="file" id="file" accept="{{filetype}}" #fileinput (change)="getFileDetails($event)"> -->
 
-
 <div class="input-group input-group-sm ">
 
   <div class="custom-file">
@@ -11,9 +10,9 @@
 
   </div>
 
-  <span  [ngStyle]="setMyStyles()"   class="btn btn-default btn-sm ml-1"  (click)="showImage(content)">
+  <span  [ngStyle]="setMyStyles()"   class="btn btn-default btn-sm ml-0"  (click)="showImage(content)">
     
-    <a  style="color:blue;"  >
+    <a  style="color:blue;" class="mx-auto"  >
       <i class="fa fa-download" aria-hidden="true"></i>
     </a>
 

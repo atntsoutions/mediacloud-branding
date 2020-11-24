@@ -15,6 +15,9 @@ export class pim_spot {
     spot_vendor_id : string;
     spot_vendor_name  : string;
 
+    spot_recce_id : string;
+    spot_recce_name  : string;
+
     spot_region_id : string;
     spot_region_name  : string;
 
@@ -42,6 +45,7 @@ export class pim_spot {
     approved_remarks: string;
     approved_date: string;
 
+    show_window : boolean;
 
     _globalvariables: GlobalVariables;
 }
