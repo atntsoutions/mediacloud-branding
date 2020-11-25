@@ -1,6 +1,5 @@
 
 
-
   <div class="row border">
 
     <div class="col-sm-12">
@@ -17,7 +16,7 @@
         </div>
 
         <div class ="col-2">
-          <button (click)="Save()" class="btn btn-primary btn-sm mr-1" >Save</button>
+          <button (click)="Save()" class="btn btn-primary btn-sm mr-1"  *ngIf="canSave" >Save</button>
         </div>
       </div>
 

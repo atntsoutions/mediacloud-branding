@@ -1,0 +1,55 @@
+<button (click)="showContent(content)" class="btn btn-primary btn-sm">{{_caption}}</button>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Mail History</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+  <div class="modal-body">
+
+    <div class="page-list">
+      <div class="page-body table-responsive">
+        <table class="table  table-hover table-sm">
+          <thead class="page-body-thead">
+            <tr>
+              <th>DATE</th>
+              <th>SOURCE</th>
+              <th>REF#</th>
+              <th>SEND-BY</th>
+              <th>SEND-TO</th>
+              <th>COMMENTS</th>
+            </tr>
+          </thead>
+          <tbody class="page-body-tbody">
+            <tr *ngFor="let rec of RecordList; let i = index">
+              <td>{{rec.mail_date}}</td>
+              <td>{{rec.mail_source}}</td>
+              <td>{{rec.mail_refno}}</td>
+              <td>{{rec.mail_send_by}}</td>
+              <td>{{rec.mail_send_to}}</td>
+              <td>{{rec.mail_comments}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="ErrorMessage" class="alert alert-danger">
+      {{ErrorMessage}}
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <div class="mx-auto">
+      <button (click)="getDataFromParent()" class="btn btn-primary mx-3" *ngIf="bSave" >{{_sendCaption}}</button>
+      <button type="button" ngbAutofocus class="btn btn-info" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </div>
+
+</ng-template>

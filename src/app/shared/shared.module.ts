@@ -50,6 +50,7 @@ import { InputFileComponent } from './inputfile/inputfile.component';
 import { ReportComponent } from './report/report.component';
 import { ApprovalComponent } from './approval/approval.component';
 import { YesNoPipe } from './yesnopipe/yes-no.pipe';
+import { MailHistoryComponent } from './mailhistory/mailhistory.component';
 
 
 
@@ -85,7 +86,8 @@ import { YesNoPipe } from './yesnopipe/yes-no.pipe';
     InputFileComponent,
     ReportComponent,
     ApprovalComponent,
-    YesNoPipe
+    YesNoPipe,
+    MailHistoryComponent
   ],
   exports: [
     CommonModule,
@@ -115,7 +117,8 @@ import { YesNoPipe } from './yesnopipe/yes-no.pipe';
     InputFileComponent,
     ReportComponent,
     ApprovalComponent,
-    YesNoPipe
+    YesNoPipe,
+    MailHistoryComponent
   ],
   providers: [
     AlertService,

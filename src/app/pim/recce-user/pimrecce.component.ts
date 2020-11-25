@@ -49,7 +49,7 @@ export class PimRecceComponent {
   report_menuid: string = '';
 
 
-  canSave = false;
+  canSave = true;
 
   pkid = '';
 
@@ -167,6 +167,8 @@ export class PimRecceComponent {
     //if (!this.allvalid())
     //return;
 
+    this.canSave =false;
+
     this.Record.spot_pkid = this._parentid;
     this.Record.spot_recce_id = this.Record.spot_recce_id;
     this.Record._globalvariables = this.gs.globalVariables;
@@ -176,6 +178,7 @@ export class PimRecceComponent {
         this.modalCallbackEvent.emit({ parentid : this._parentid, id: this.Record.spot_recce_id, name : this.Record.spot_recce_name });
       },
       error => {
+        this.canSave = true;
         alert(this.gs.getError(error));
       }
     )

@@ -262,9 +262,20 @@ export class GlobalService {
   public ListApproval(SearchData: any) {
     return this.http2.post<any>(this.baseUrl + "/api/Admin/Company/ListApproval", SearchData, this.headerparam2('authorized'));
   }
+
   public SaveApproval(Record: any) {
     return this.http2.post<any>(this.baseUrl + "/api/Admin/Company/SaveApproval", Record, this.headerparam2('authorized'));
   }
+
+
+  public ListMailHistory(SearchData: any) {
+    return this.http2.post<any>(this.baseUrl + "/api/Admin/Company/ListMailHistory", SearchData, this.headerparam2('authorized'));
+  }
+
+  public SaveMailHistory(Record: any) {
+    return this.http2.post<any>(this.baseUrl + "/api/Admin/Company/SaveMailHistory", Record, this.headerparam2('authorized'));
+  }
+
 
 
   public DownloadFile(report_folder: string, filename: string, filetype: string, filedisplayname: string = 'N') {

@@ -199,6 +199,19 @@
         </div>
       </div>
 
+      <div class="form-group row mt-1">
+        <label class="col-4 col-form-label  col-form-label-sm">Recce Team</label>
+        <div class="col-8">
+          <app-autocomplete2 [controlname]="'recce'" [tabletype]="'RECCE USER'" [subtype]=""
+            [parentid]="gs.globalVariables.user_pkid" [parentmandatory]="false" [displaycolumn]="'NAME'"
+            [id]="data.Record.spot_recce_id" [displaydata]="data.Record.spot_recce_name"
+            [disabled]=true
+            (IdChanged)="data.Record.spot_recce_id=$event" (NameChanged)="data.Record.spot_recce_name=$event">
+          </app-autocomplete2>
+        </div>
+      </div>
+
+
 
 
       <div class="form-group row mt-1">
@@ -266,6 +279,16 @@
         <div class="offset-4 col-8">
           <button (click)="Save()" class="btn btn-primary btn-sm mr-1" *ngIf="canSave">Save</button>
           <button (click)="Print()" class="btn btn-primary btn-sm mr-1" *ngIf="data.mode == 'EDIT'">Print</button>
+          
+          <App-mailhistory 
+          *ngIf="data.mode == 'EDIT'"
+          [caption]="'Approval Request'" 
+          [sendCaption]="'Send'" 
+          [maildata]="maildata"
+          [id]="data.pkid" 
+          (getMailData)="getMailData($event)"
+          > </App-mailhistory>
+
           <button (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm ml-1">Return</button>
         </div>
       </div>

@@ -5,11 +5,12 @@ import { GlobalService } from '../../core/services/global.service';
 
 import { SearchTable } from '../../shared/models/searchtable';
 
+import { mailhistory } from '../../shared/models/mailhistory';
 
 import { PimSpotService } from '../services/pimspot.service';
 import { pim_spot, pim_spotd, pim_spot_model } from '../models/pim_spot';
-import { timeStamp } from 'console';
-import { Recoverable } from 'repl';
+
+
 
 
 @Component({
@@ -50,6 +51,9 @@ export class PimSpotComponent {
   menu_record: any;
   sub: any;
 
+
+  maildata : mailhistory;
+
   isAdmin = false;
   bChanged: boolean;
 
@@ -70,6 +74,9 @@ export class PimSpotComponent {
     this.menuid = this.gs.getParameter("menuid");
     this.type = this.gs.getParameter("type");
     this.urlid = "1001";
+
+    this.maildata = new mailhistory();
+    this.maildata.mail_process_id = 0;
 
     this.InitComponent();
 
@@ -148,7 +155,7 @@ export class PimSpotComponent {
 
     this.data.ErrorMessage = "";
     this.data.InfoMessage = "";
-
+    
     if (action === 'LIST') {
       this.data.tab = 'LIST';
     }
@@ -420,6 +427,10 @@ export class PimSpotComponent {
 
   }
 
+  requestApproval(){
+    
+  }
+
   Print(){
 
     let SearchData = {
@@ -456,6 +467,27 @@ export class PimSpotComponent {
         this.report_searchdata.comp_code = this.gs.globalVariables.comp_code;
         this.data.tab = 'REPORT';
 
+  }
+
+  getMailData(evt : any)
+  {
+    if ( evt  =="SEND"){
+      this.maildata.mail_process_id = 0;
+    }
+    else  {
+    var mdata = new mailhistory;
+    mdata.mail_pkid = this.gs.getGuid();
+    mdata.mail_source = "SPOT";
+    mdata.mail_source_id = this.data.pkid ;
+    mdata.mail_send_by = this.gs.globalVariables.user_code;
+    mdata.mail_send_to ="";
+    mdata.mail_refno =  "JOB# "+this.data.Record.spot_slno;
+    mdata.mail_comments = "Mail Sent";
+    mdata.mail_files = "";
+    mdata.mail_date = "";
+    mdata.mail_process_id = 1;
+    this.maildata = mdata;
+    }
   }
 
   callbackevent(event: any) {
