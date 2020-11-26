@@ -218,7 +218,7 @@
           <button (click)="Save()" class="btn btn-primary btn-sm mr-1" *ngIf="canSave">Save</button>
           <button (click)="Print()" class="btn btn-primary btn-sm mr-1" *ngIf="data.mode == 'EDIT'">Print</button>
           
-          <App-Approval [id]="data.pkid" *ngIf="data.mode == 'EDIT' && bApproval"></App-Approval>
+          <App-Approval [id]="data.pkid" [source]="'RECCE JOB'" [refno]="data.Record.spot_slno" *ngIf="data.mode == 'EDIT' && bApproval"></App-Approval>
 
           <button (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm ml-1">Return</button>
         </div>

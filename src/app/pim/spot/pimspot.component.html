@@ -281,7 +281,7 @@
           <button (click)="Print()" class="btn btn-primary btn-sm mr-1" *ngIf="data.mode == 'EDIT'">Print</button>
           
           <App-mailhistory 
-          *ngIf="data.mode == 'EDIT'"
+          *ngIf="data.mode == 'EDIT' && gs.globalVariables.user_role_name == 'RECCE USER'"
           [caption]="'Approval Request'" 
           [sendCaption]="'Send'" 
           [maildata]="maildata"

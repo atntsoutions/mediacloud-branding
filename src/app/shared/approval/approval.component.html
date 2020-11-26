@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="page-list mt-1" *ngIf="bSave" >
+    <div class="page-list mt-1">
 
       <div class="row" >
         <div class="col-sm-8">
@@ -49,10 +49,16 @@
 
           <div class="form-group row my-2">
             <div class="offset-2 col-10">
-              <button (click)="Save('APPROVE')" class="btn btn-primary btn-sm mr-3" >APPROVE</button>
-              <button (click)="Save('REJECT')" class="btn btn-primary btn-sm " >REJECT</button>
+              <button (click)="Save('APPROVE')" class="btn btn-primary btn-sm mr-3" [disabled]="!bSave" >APPROVE</button>
+              <button (click)="Save('REJECT')" class="btn btn-primary btn-sm "  [disabled]="!bSave"  >REJECT</button>
             </div>
           </div>
+
+          <div class="loading-screen-icon" *ngIf="loading">
+            <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
+            <span>Processing...</span>
+          </div>
+
           
         </div>
       </div>
