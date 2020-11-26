@@ -19,7 +19,8 @@ export class MailHistoryComponent {
   loading=false;
 
   private _caption: string = '';
-  @Input() set caption(value: string) {
+  @Input() 
+  set caption(value: string) {
     if (value != null)
       this._caption = value;
   }
@@ -28,7 +29,8 @@ export class MailHistoryComponent {
   }
 
   private _sendCaption: string = '';
-  @Input() set sendCaption(value: string) {
+  @Input() 
+  set sendCaption(value: string) {
     if (value != null)
       this._sendCaption = value;
   }
