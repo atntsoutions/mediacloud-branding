@@ -15,6 +15,9 @@ export class MailHistoryComponent {
   
   title = 'Mail History';
 
+  isOk = false;
+  loading=false;
+
   private _caption: string = '';
   @Input() set caption(value: string) {
     if (value != null)
@@ -41,7 +44,9 @@ export class MailHistoryComponent {
     {
       this._maildata = value;
       if (this._maildata.mail_process_id > 0) {
-        this.Save();
+        if ( this.isOk) {
+          this.Save();
+        }
       }
     }
   }
@@ -110,6 +115,8 @@ export class MailHistoryComponent {
 
 
   getDataFromParent() { 
+    this.isOk =true;
+    this.loading = true;
     this.getMailData.emit('MAIL');
   }
 
@@ -120,10 +127,13 @@ export class MailHistoryComponent {
       this.Record._globalvariables = this.gs.globalVariables;
       this.gs.SaveMailHistory (this.Record)
         .subscribe(response => {
+          this.loading = false;
             this.getMailData.emit('SEND');
+            alert('Email Sent');
             this.modalService.dismissAll(null);
         },
         error => {
+          this.loading = false;          
           this.bSave = true;
           this.getMailData.emit('SEND');          
           this.ErrorMessage = this.gs.getError(error);

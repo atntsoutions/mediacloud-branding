@@ -22,6 +22,7 @@
               <th>REF#</th>
               <th>SEND-BY</th>
               <th>SEND-TO</th>
+              <th>SEND-CC</th>
               <th>COMMENTS</th>
             </tr>
           </thead>
@@ -32,6 +33,7 @@
               <td>{{rec.mail_refno}}</td>
               <td>{{rec.mail_send_by}}</td>
               <td>{{rec.mail_send_to}}</td>
+              <td>{{rec.mail_send_cc}}</td>
               <td>{{rec.mail_comments}}</td>
             </tr>
           </tbody>
@@ -47,8 +49,15 @@
 
   <div class="modal-footer">
     <div class="mx-auto">
-      <button (click)="getDataFromParent()" class="btn btn-primary mx-3" *ngIf="bSave" >{{_sendCaption}}</button>
+      <button (click)="getDataFromParent()" class="btn btn-primary mx-3" [disabled]="!bSave" >{{_sendCaption}}</button>
       <button type="button" ngbAutofocus class="btn btn-info" (click)="modal.close('Close click')">Close</button>
+
+      <div class="loading-screen-icon" *ngIf="loading">
+        <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
+        <span>Processing...</span>
+      </div>
+
+
     </div>
   </div>
 

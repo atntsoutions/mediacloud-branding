@@ -12,7 +12,6 @@ import { pim_spot, pim_spotd, pim_spot_model } from '../models/pim_spot';
 
 
 
-
 @Component({
   selector: 'app-pimspot',
   templateUrl: './pimspot.component.html'
@@ -75,11 +74,9 @@ export class PimSpotComponent {
     this.type = this.gs.getParameter("type");
     this.urlid = "1001";
 
-    this.maildata = new mailhistory();
-    this.maildata.mail_process_id = 0;
-
+    this.initMailHisory();
     this.InitComponent();
-
+    
   }
 
   ngOnInit() {
@@ -432,15 +429,14 @@ export class PimSpotComponent {
   }
 
   Print(){
-
     let SearchData = {
       pkid: this.data.pkid,
-      comp_code : this.gs.globalVariables.comp_code
+      comp_code : this.gs.globalVariables.comp_code,
+      user_code : this.gs.globalVariables.user_code
     };
 
     this.data.ErrorMessage = '';
     this.ms.getSpotMemo(SearchData).subscribe(response => {
-      //this.gs.DownloadFile('',response.filename, response.filetype, response.filedisplayname);
       this.data.report.filename =  response.filename;
       this.data.report.filetype = response.filetype; 
       this.data.report.filedisplayname = response.filedisplayname;
@@ -459,34 +455,54 @@ export class PimSpotComponent {
   }
 
 
-  Print1() {
-
-        this.report_title = 'Spot Details';
-        this.report_url = '/api/Pim/Spot/SpotMemo';
-        this.report_searchdata.pkid =  this.data.pkid;
-        this.report_searchdata.comp_code = this.gs.globalVariables.comp_code;
-        this.data.tab = 'REPORT';
-
+  initMailHisory(){
+    var mdata = new mailhistory();
+    mdata.mail_process_id = 0;
+    this.maildata = mdata;
   }
 
   getMailData(evt : any)
   {
     if ( evt  =="SEND"){
-      this.maildata.mail_process_id = 0;
-    }
+      // process_id need to be made 0 otherwise email will be send automatically
+      this.initMailHisory();
+     }
     else  {
-    var mdata = new mailhistory;
-    mdata.mail_pkid = this.gs.getGuid();
-    mdata.mail_source = "SPOT";
-    mdata.mail_source_id = this.data.pkid ;
-    mdata.mail_send_by = this.gs.globalVariables.user_code;
-    mdata.mail_send_to ="";
-    mdata.mail_refno =  "JOB# "+this.data.Record.spot_slno;
-    mdata.mail_comments = "Mail Sent";
-    mdata.mail_files = "";
-    mdata.mail_date = "";
-    mdata.mail_process_id = 1;
-    this.maildata = mdata;
+        let SearchData = {
+          pkid: this.data.pkid,
+          comp_code : this.gs.globalVariables.comp_code,
+          user_code : this.gs.globalVariables.user_code
+        };
+        this.data.ErrorMessage = '';
+        this.ms.getSpotMemo(SearchData).subscribe(response => {
+
+          var mdata = new mailhistory;
+          mdata.mail_pkid = this.gs.getGuid();
+          mdata.mail_source = "SPOT";
+          mdata.mail_source_id = this.data.pkid ;
+          mdata.mail_send_by = this.gs.globalVariables.user_code;
+          mdata.mail_send_to = response.email_to ;
+          mdata.mail_send_cc = response.email_cc ;
+          mdata.mail_refno =  "JOB# "+this.data.Record.spot_slno;
+          mdata.mail_comments = "Mail Sent";
+          mdata.mail_files = response.filename;
+          mdata.mail_date = "";
+
+          mdata.mail_subject = "Recce Work Job #" + this.data.Record.spot_slno;
+          
+          mdata.mail_message = "Dear Sir \n\n\n";
+          
+          mdata.mail_message += "Pls find the attached Recce work Details\n\n\n";
+
+          mdata.mail_message += "Thanks And Regards\n";
+          mdata.mail_message += this.gs.globalVariables.user_name;
+
+          mdata.mail_process_id = 1;
+          this.maildata = mdata;
+          
+        },error => {
+              this.data.ErrorMessage = this.gs.getError(error);
+        });
     }
   }
 

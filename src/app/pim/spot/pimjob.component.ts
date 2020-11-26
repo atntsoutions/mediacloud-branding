@@ -323,12 +323,12 @@ export class PimJobComponent {
 
     let SearchData = {
       pkid: this.data.pkid,
-      comp_code : this.gs.globalVariables.comp_code
+      comp_code : this.gs.globalVariables.comp_code,
+      user_code : this.gs.globalVariables.user_code
     };
 
     this.data.ErrorMessage = '';
     this.ms.getSpotMemo(SearchData).subscribe(response => {
-      //this.gs.DownloadFile('',response.filename, response.filetype, response.filedisplayname);
       this.data.report.filename =  response.filename;
       this.data.report.filetype = response.filetype; 
       this.data.report.filedisplayname = response.filedisplayname;
@@ -346,16 +346,6 @@ export class PimJobComponent {
     return '?t=' + new Date().getTime();
   }
 
-
-  Print1() {
-
-        this.report_title = 'Spot Details';
-        this.report_url = '/api/Pim/Spot/SpotMemo';
-        this.report_searchdata.pkid =  this.data.pkid;
-        this.report_searchdata.comp_code = this.gs.globalVariables.comp_code;
-        this.data.tab = 'REPORT';
-
-  }
 
   callbackevent(event: any) {
     this.data.tab = 'DETAILS';
