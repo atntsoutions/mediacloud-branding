@@ -23,11 +23,17 @@ export class MailHistoryComponent {
     if (value != null)
       this._caption = value;
   }
+  get caption() : string{
+    return this._caption;
+  }
 
   private _sendCaption: string = '';
   @Input() set sendCaption(value: string) {
     if (value != null)
       this._sendCaption = value;
+  }
+  get sendCaption() : string {
+    return this._sendCaption;
   }
   
   private pkid: string = '';
