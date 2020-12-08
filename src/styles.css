@@ -812,3 +812,11 @@ tree-node:last-child > .tree-node > .tree-children::after {
   margin-left : auto;
   margin-right: auto;
 }
+
+
+.card-img-top-job {
+  width: 18rem;
+  height: 18rem;
+  object-fit: cover;
+  
+}

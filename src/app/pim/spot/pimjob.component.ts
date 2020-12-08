@@ -57,6 +57,8 @@ export class PimJobComponent {
 
   user_pkid = '';
 
+  mRecord : pim_spotd;
+
   constructor(
     private modalService: NgbModal,
     public ms: PimJobService,
@@ -184,6 +186,7 @@ export class PimJobComponent {
     this.ms.getRecord(SearchData)
       .subscribe(response => {
         this.data.Record = response.record;
+        this.data.RecordDet = response.recorddet;        
         this.data.mode = "EDIT";
         this.resetRights();
       },
@@ -228,6 +231,7 @@ export class PimJobComponent {
     this.data.Record.spot_installation_view_file_uploaded = false;
 
     this.data.Record.spot_server_folder = "" ;
+    this.data.Record.approved_status = "" ;
 
 
     this.data.tab = 'DETAILS';
@@ -298,6 +302,31 @@ export class PimJobComponent {
 
 
 
+  saveStatus( _Record : pim_spotd) {
+
+    //if (!this.allvalid())
+    //return;
+
+
+    this.data.ErrorMessage = '';
+
+    _Record.rec_mode = "EDIT";
+    
+
+    this.ms.SaveStatus(_Record).subscribe(
+      response => {
+        alert('Status Updated');
+      },
+      error => {
+        this.data.ErrorMessage = this.gs.getError(error);
+        alert(this.data.ErrorMessage);
+      }
+    )
+  }
+
+
+
+
 
   remove(rec: pim_spot) {
     if (confirm("Are you sure to delete " + rec.spot_slno)) {
@@ -318,6 +347,8 @@ export class PimJobComponent {
     }
 
   }
+
+        
 
   Print(){
 

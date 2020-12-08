@@ -206,6 +206,14 @@
         </div>
       </div>
 
+      <div class="form-group row mt-1">
+        <label class="col-4 col-form-label col-form-label-sm">Status</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.approved_status" disabled
+            maxlength="200" />
+        </div>
+      </div>
+
 
     </div>
 
@@ -215,11 +223,11 @@
   <div class="row">
     <div class="col-sm-6 border py-1">
       <div class="form-group row">
-        <div class="offset-4 col-8">
+        <div class=" offset-4 col-8">
           <button (click)="Save()" class="btn btn-primary btn-sm mr-1" *ngIf="canSave">Save</button>
           <button (click)="Print()" class="btn btn-primary btn-sm mr-1" *ngIf="data.mode == 'EDIT'">Print</button>
           
-          <App-Approval [id]="data.pkid" [source]="'RECCE JOB'" [refno]="data.Record.spot_slno" *ngIf="data.mode == 'EDIT' && bApproval"></App-Approval>
+          <App-Approval [id]="data.pkid" [source]="'RECCE JOB'" [refno]="data.Record.spot_slno" [caption]="'Final Approval'" *ngIf="data.mode == 'EDIT' && bApproval"></App-Approval>
 
           <button (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm ml-1">Return</button>
         </div>
@@ -228,6 +236,29 @@
   </div>
 
 </div>
+
+
+
+<div *ngIf="data.tab == 'DETAILS' && data.mode == 'EDIT'" class="page-details">
+
+
+  <div *ngFor="let rec of data.RecordDet; let i = index" class="mt-4">
+
+    <app-pimjobdet 
+      [Record]="rec" 
+      [bApproval]="bApproval"
+      [menu_record]="menu_record"
+      (saveStatus)="saveStatus($event)"
+      >
+    </app-pimjobdet>
+  </div>
+
+
+
+</div>
+
+
+
 
 
 <div *ngIf="data.tab == 'REPORT'">

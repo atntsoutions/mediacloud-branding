@@ -1,0 +1,147 @@
+
+
+  <div class="row mt-3">
+    <div class="col-sm-6 steelblue text-white font-weight-bold">
+      <div class="form-group row">
+        <label class="col-4 col-form-label col-form-label-sm">SPOT SL# {{Record.spotd_slno}}</label>
+      </div>
+    </div>
+  </div>
+
+<div class="row">
+
+  <div class="col-sm-3 border p-2">
+
+
+    <div class="form-group row mt-1">
+      <label class="col-4 col-form-label col-form-label-sm">Spot Name</label>
+      <div class="col-8">
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_name" required disabled
+          maxlength="100" />
+      </div>
+    </div>
+
+    <div class="form-group row mt-1">
+      <label class="col-4 col-form-label col-form-label-sm">Unit</label>
+      <div class="col-8">
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_uom" disabled />
+      </div>
+    </div>
+
+    <div class="form-group row mt-1">
+      <label class="col-4 col-form-label col-form-label-sm">Width</label>
+      <div class="col-8">
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_wd" disabled />
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="col-sm-3 border p-2">
+
+
+    <div class="form-group row mt-1">
+      <label class="col-4 col-form-label col-form-label-sm">Height</label>
+      <div class="col-8">
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_ht" disabled />
+      </div>
+    </div>
+
+
+
+    <div class="form-group row mt-1">
+      <label class="col-4 col-form-label  col-form-label-sm">ArtWork</label>
+      <div class="col-8">
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_artwork_name" disabled />
+      </div>
+    </div>
+
+
+    <div class="form-group row mt-1">
+      <label class="col-4 col-form-label  col-form-label-sm">Product</label>
+      <div class="col-8">
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_product_name" disabled />
+      </div>
+    </div>
+
+
+  </div>
+
+
+</div>
+
+
+<div class="row">
+
+
+  <div class="col-sm-2 border p-2">
+    <div class="card text-center text-white">
+      <img class="card-img-top-job mx-auto my-1"
+        [src]="gs.getServerImageFolder(Record.spotd_pkid, 'closeview', Record.spotd_close_view)" alt="Close View">
+      <div class="card-body border-top">
+        <a class="btn btn-primary" (click)="showImage(content, 'closeview')">View Image</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-2 border p-2">
+    <div class="card text-center text-white">
+      <img class="card-img-top-job mx-auto my-1"
+        [src]="gs.getServerImageFolder(Record.spotd_pkid, 'longview', Record.spotd_long_view)" alt="Long View">
+       <div class="card-body border-top">
+        <a class="btn btn-primary" (click)="showImage(content, 'longview')">View Image</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-2 border p-2">
+    <div class="card text-center text-white">
+      <img class="card-img-top-job mx-auto my-1"
+        [src]="gs.getServerImageFolder(Record.spotd_pkid, 'finalview', Record.spotd_final_view)" alt="Final View">
+      <div class="card-body border-top">
+        <a class="btn btn-primary" (click)="showImage(content, 'finalview')">View Image</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-sm-6 border py-1 bg-light">
+    <div class="form-group row">
+
+      <label class="col-4 col-form-label  col-form-label-sm font-weight-bold text-primary">APPROVAL STATUS : {{Record.spotd_status}}</label>
+      <div class="col-8">  
+        <button (click)="SaveStatus('APPROVED')" class="btn btn-success btn-sm mr-1" *ngIf="bApproval">APPROVE</button>
+        <button (click)="SaveStatus('REJECTED')" class="btn btn-success btn-sm mr-1" *ngIf="bApproval">REJECT</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title"></h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body mx-auto">
+    <p>
+      <img class="border" src="{{imageFileName}}" height="500" width="500">
+    </p>
+
+  </div>
+  <div class="modal-footer">
+    <div class="mx-auto">
+      <button type="button" ngbAutofocus class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </div>
+</ng-template>

@@ -36,6 +36,11 @@ export class ApprovalComponent {
       this._refno = value;
   }
 
+  @Input() set caption(value: string) {
+    if (value != null)
+      this.title = value;
+  }
+
 
   comments = '';
 

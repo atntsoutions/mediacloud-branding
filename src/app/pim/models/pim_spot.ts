@@ -84,6 +84,8 @@ export class pim_spotd {
     spotd_long_view_file_uploaded :  boolean ;
     spotd_final_view_file_uploaded :  boolean ;
 
+    spotd_status: string;
+
     rec_mode: string;
     _globalvariables: GlobalVariables;
 }

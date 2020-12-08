@@ -231,6 +231,7 @@ export class PimSpotComponent {
 
     this.data.Record.spot_server_folder = "" ;
 
+    this.data.Record.approved_status = "" ;
 
     this.data.tab = 'DETAILS';
     this.data.mode = 'ADD';

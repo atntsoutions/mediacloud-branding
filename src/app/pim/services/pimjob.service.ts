@@ -60,6 +60,10 @@ export class PimJobService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Pim/Job/Save', SearchData,  this.gs.headerparam2('authorized-fileupload'));
   }
 
+  public SaveStatus(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Pim/Job/SaveStatus', SearchData,  this.gs.headerparam2('authorized'));
+  }
+
   public delete(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Pim/Job/Delete', SearchData, this.gs.headerparam2('authorized'));
   }

@@ -234,8 +234,10 @@ export class GlobalService {
   }
 
 
-  public getServerImageFolder(mainid : string , subid : string ){
+  public getServerImageFolder(mainid : string , subid : string, fname : string = '' ){
     let str =  `${this.globalVariables.server_image_url}\\DOCS\\${mainid}\\${subid}\\`;
+    if ( fname != '')
+      str += fname;
     return str;
   }
 
