@@ -179,6 +179,7 @@
             [parentid]="user_pkid" [parentmandatory]="false" [displaycolumn]="'NAME'"
             [id]="data.Record.spot_store_id" [displaydata]="data.Record.spot_store_name"
             [where]="store_region_where"            
+            (ValueChanged)="callbackevent($event)"
             (IdChanged)="data.Record.spot_store_id=$event" (NameChanged)="data.Record.spot_store_name=$event">
           </app-autocomplete2>
         </div>

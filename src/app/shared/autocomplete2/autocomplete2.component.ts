@@ -299,10 +299,12 @@ export class AutoComplete2Component {
 
     this.showDiv = false;
     
-    this.ValueChanged.emit(this.inputdata);
+
 
     this.IdChanged.emit(this.inputdata.id);
     this.NameChanged.emit(this.inputdata.name);
+
+    this.ValueChanged.emit(this.inputdata);
 
     this.RecList = [];
   }

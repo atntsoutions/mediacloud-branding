@@ -349,6 +349,12 @@ export class PimJobComponent {
 
   callbackevent(event: any) {
     this.data.tab = 'DETAILS';
+    if ( event.controlname =='store'){
+      this.data.Record.spot_store_contact_tel = event.col1;
+      this.data.Record.spot_store_contact_name = event.col2;
+    }
+    
+
   }
 
 

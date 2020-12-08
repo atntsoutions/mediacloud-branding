@@ -212,6 +212,14 @@
       </div>
 
 
+      <div class="form-group row mt-1">
+        <label class="col-4 col-form-label col-form-label-sm">Executive Name</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.spot_executive_name" [disabled]=true
+            maxlength="100" />
+        </div>
+      </div>
+
 
 
       <div class="form-group row mt-1">
@@ -228,13 +236,7 @@
 
 
 
-      <div class="form-group row mt-1">
-        <label class="col-4 col-form-label col-form-label-sm">Executive Name</label>
-        <div class="col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.spot_executive_name"
-            maxlength="100" />
-        </div>
-      </div>
+
 
       <div class="form-group row mt-1">
         <label class="col-4 col-form-label col-form-label-sm">Store Contact Name</label>
@@ -281,7 +283,7 @@
           <button (click)="Print()" class="btn btn-primary btn-sm mr-1" *ngIf="data.mode == 'EDIT'">Print</button>
           
           <App-mailhistory 
-          *ngIf="data.mode == 'EDIT' && gs.globalVariables.user_role_name == 'RECCE USER'"
+          *ngIf="data.mode == 'EDIT' && gs.globalVariables.user_role_name == 'VENDOR'"
           [caption]="'Approval Request'" 
           [sendCaption]="'Send'" 
           [maildata]="maildata"
