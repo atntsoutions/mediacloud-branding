@@ -433,7 +433,8 @@ export class PimSpotComponent {
     let SearchData = {
       pkid: this.data.pkid,
       comp_code : this.gs.globalVariables.comp_code,
-      user_code : this.gs.globalVariables.user_code
+      user_code : this.gs.globalVariables.user_code,
+      source  : 'SPOT'
     };
 
     this.data.ErrorMessage = '';

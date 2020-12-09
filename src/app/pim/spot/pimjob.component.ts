@@ -361,7 +361,8 @@ export class PimJobComponent {
     let SearchData = {
       pkid: this.data.pkid,
       comp_code : this.gs.globalVariables.comp_code,
-      user_code : this.gs.globalVariables.user_code
+      user_code : this.gs.globalVariables.user_code,
+      source  : 'JOB'
     };
 
     this.data.ErrorMessage = '';
