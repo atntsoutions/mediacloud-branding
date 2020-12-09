@@ -44,6 +44,15 @@ export class MailHistoryComponent {
       this.pkid = value;
   }
 
+  private  _mail_source: string = '';
+  @Input() set mailsource(value: string) {
+    if (value != null)
+      this._mail_source = value;
+  }
+  get mailsource() {
+    return this._mail_source;
+  }
+
 
 
   private _maildata: mailhistory ;
@@ -108,6 +117,7 @@ export class MailHistoryComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       user_code : this.gs.globalVariables.user_code,
+      mailsource : this.mailsource
     };
 
     this.gs.ListMailHistory(SearchData)

@@ -271,13 +271,7 @@
       </div>
 
 
-      <div class="form-group row mt-1">
-        <label class="col-4 col-form-label col-form-label-sm">Status</label>
-        <div class="col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.approved_status" disabled
-            maxlength="200" />
-        </div>
-      </div>
+
       
 
     </div>
@@ -296,6 +290,7 @@
           *ngIf="data.mode == 'EDIT' && gs.globalVariables.user_role_name == 'VENDOR'"
           [caption]="'Approval Request'" 
           [sendCaption]="'Send'" 
+          [mailsource]="'SPOT'" 
           [maildata]="maildata"
           [id]="data.pkid" 
           (getMailData)="getMailData($event)"

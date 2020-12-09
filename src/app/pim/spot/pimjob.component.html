@@ -206,13 +206,7 @@
         </div>
       </div>
 
-      <div class="form-group row mt-1">
-        <label class="col-4 col-form-label col-form-label-sm">Status</label>
-        <div class="col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.approved_status" disabled
-            maxlength="200" />
-        </div>
-      </div>
+
 
 
     </div>
@@ -226,8 +220,16 @@
         <div class=" offset-4 col-8">
           <button (click)="Save()" class="btn btn-primary btn-sm mr-1" *ngIf="canSave">Save</button>
           <button (click)="Print()" class="btn btn-primary btn-sm mr-1" *ngIf="data.mode == 'EDIT'">Print</button>
-          
-          <App-Approval [id]="data.pkid" [source]="'RECCE JOB'" [refno]="data.Record.spot_slno" [caption]="'Final Approval'" *ngIf="data.mode == 'EDIT' && bApproval"></App-Approval>
+
+          <App-mailhistory 
+          *ngIf="data.mode == 'EDIT' && (gs.globalVariables.user_role_name == 'ZONE ADMIN' || gs.globalVariables.user_code == 'ADMIN' )"
+          [caption]="'Approval Mail'" 
+          [sendCaption]="'Send Approval'" 
+          [maildata]="maildata"
+          [mailsource]="'JOB'" 
+          [id]="data.pkid" 
+          (getMailData)="getMailData($event)"
+          > </App-mailhistory>
 
           <button (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm ml-1">Return</button>
         </div>

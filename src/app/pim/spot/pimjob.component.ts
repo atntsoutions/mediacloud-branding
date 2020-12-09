@@ -5,6 +5,9 @@ import { GlobalService } from '../../core/services/global.service';
 
 import { SearchTable } from '../../shared/models/searchtable';
 
+import { mailhistory } from '../../shared/models/mailhistory';
+
+
 import { PimJobService } from '../services/pimjob.service';
 import { pim_spot, pim_spotd, pim_spot_model } from '../models/pim_spot';
 
@@ -33,6 +36,8 @@ export class PimJobComponent {
   report_url: string = '';
   report_searchdata: any = {};
   report_menuid: string = '';
+
+  maildata : mailhistory;
 
 
   canSave = false;
@@ -70,6 +75,7 @@ export class PimJobComponent {
     this.type = this.gs.getParameter("type");
     this.urlid = "1001";
 
+    this.initMailHisory();
     this.InitComponent();
 
   }
@@ -387,6 +393,67 @@ export class PimJobComponent {
     
 
   }
+
+
+  initMailHisory(){
+    var mdata = new mailhistory();
+    mdata.mail_process_id = 0;
+    this.maildata = mdata;
+  }
+
+
+  getMailData(evt : any)
+  {
+    if ( evt  =="SEND"){
+      // process_id need to be made 0 otherwise email will be send automatically
+      this.initMailHisory();
+     }
+    else  {
+        let SearchData = {
+          pkid: this.data.pkid,
+          comp_code : this.gs.globalVariables.comp_code,
+          user_code : this.gs.globalVariables.user_code,
+          source  : 'JOB'
+        };
+        this.data.ErrorMessage = '';
+        this.ms.getSpotMemo(SearchData).subscribe(response => {
+
+          var mdata = new mailhistory;
+          mdata.mail_pkid = this.gs.getGuid();
+          mdata.mail_source = "JOB";
+          mdata.mail_source_id = this.data.pkid ;
+          mdata.mail_send_by = this.gs.globalVariables.user_code;
+          mdata.mail_send_to = response.email_to ;
+          mdata.mail_send_cc = response.email_cc ;
+          mdata.mail_refno =  "JOB# "+this.data.Record.spot_slno;
+          mdata.mail_comments = "Mail Sent";
+          mdata.mail_files = response.filename;
+          mdata.mail_date = "";
+
+          mdata.mail_subject = "Recce Work Approval  Job #" + this.data.Record.spot_slno;
+          
+          mdata.mail_message = "Dear Sir \n\n\n";
+          
+          mdata.mail_message += "Pls find Approval/Rejection Status of Recce Job # "  + this.data.Record.spot_slno +"\n\n\n";
+
+          mdata.mail_message += response.html;
+
+          mdata.mail_message += "\n\n\n";
+
+          mdata.mail_message += "Thanks And Regards\n";
+          mdata.mail_message += this.gs.globalVariables.user_name;
+
+          mdata.mail_process_id = 1;
+          this.maildata = mdata;
+          
+        },error => {
+              this.data.ErrorMessage = this.gs.getError(error);
+        });
+    }
+  }
+
+
+
 
 
 
