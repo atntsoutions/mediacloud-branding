@@ -79,9 +79,10 @@ export class PimJobDetComponent {
 
     this.modalService.open(content, { centered: true });
 
+
   }
 
-  
+
 
   ActionHandler(action: string, id: string) {
   }
