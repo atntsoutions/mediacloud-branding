@@ -63,6 +63,7 @@
       <thead class="page-body-thead">
         <tr>
           <th>JOB#</th>
+          <th>REQ#</th>
           <th>DATE</th>
           
           <th>REGION</th>
@@ -92,6 +93,7 @@
 
         <tr >
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_slno}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_req_no}}</td>
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_date }}</td>
           
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_region_name}}</td>
@@ -164,6 +166,13 @@
         <label class="col-4 col-form-label col-form-label-sm">Job#</label>
         <div class="col-8">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.spot_slno" disabled />
+        </div>
+      </div>
+
+      <div class="form-group row mt-1">
+        <label class="col-4 col-form-label col-form-label-sm">Req#</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.spot_req_no" disabled />
         </div>
       </div>
 
@@ -290,6 +299,7 @@
           *ngIf="data.mode == 'EDIT' && gs.globalVariables.user_role_name == 'VENDOR'"
           [caption]="'Approval Request'" 
           [sendCaption]="'Send'" 
+          [mailsend]="data.Record.spot_request_send"          
           [mailsource]="'SPOT'" 
           [maildata]="maildata"
           [id]="data.pkid" 

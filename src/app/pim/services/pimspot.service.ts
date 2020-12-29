@@ -64,6 +64,10 @@ export class PimSpotService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Pim/Spot/SaveDet', SearchData,  this.gs.headerparam2('authorized-fileupload'));
   }
 
+  public UpdateDet(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Pim/Spot/UpdateDet', SearchData,  this.gs.headerparam2('authorized-fileupload'));
+  }
+
 
 
   public getSpotMemo(SearchData: any) {

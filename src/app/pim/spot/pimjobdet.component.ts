@@ -32,6 +32,8 @@ export class PimJobDetComponent {
   @Output() deleteDet = new EventEmitter<string>();
 
 
+  
+
   canSave = true;
   mode = "new";
 
@@ -50,6 +52,11 @@ export class PimJobDetComponent {
   ) {
     
     this.InitComponent();
+
+    if (this.gs.globalVariables.user_role_name == "ZONE ADMIN" || this.gs.globalVariables.user_admin)
+    {
+      this.isAdmin = true;
+    }
 
   }
 
@@ -121,6 +128,20 @@ export class PimJobDetComponent {
       else{
           alert('cannot delete');
         }
+  }
+
+  SaveDet() {
+    let frmData: FormData = new FormData();
+    this.Record._globalvariables = this.gs.globalVariables;
+    frmData.append("record", JSON.stringify(this.Record));
+    this.ms.UpdateDet(frmData).subscribe(
+      response => {
+        alert('Updation Completed');
+      },
+      error => {
+        alert( this.gs.getError(error));
+      }
+    )
   }
 
 

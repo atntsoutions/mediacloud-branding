@@ -7,13 +7,14 @@ export class pim_spot {
 
     spot_date : string;
     spot_slno : number;
-    
+    spot_req_no : number;
 
     spot_store_id : string;
     spot_store_name  : string;
 
     spot_vendor_id : string;
     spot_vendor_name  : string;
+    spot_vendor_web  : string;
 
     spot_recce_id : string;
     spot_recce_name  : string;
@@ -36,6 +37,10 @@ export class pim_spot {
     spot_installation_view : string;
     spot_installation_view_file : File ;
     spot_installation_view_file_uploaded : boolean ;
+
+    spot_request_send : string ;
+    spot_approval_send : string ;
+
 
     rec_mode: string;
 

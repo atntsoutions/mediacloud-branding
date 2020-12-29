@@ -208,6 +208,9 @@ export class PimSpotComponent {
     this.data.Record.spot_pkid = this.data.pkid;
     this.data.Record.spot_date = this.gs.defaultValues.today;
 
+    this.data.Record.spot_req_no = 0;
+
+
     this.data.Record.spot_store_id = "";
     this.data.Record.spot_store_name = "";
     
@@ -232,6 +235,10 @@ export class PimSpotComponent {
     this.data.Record.spot_server_folder = "" ;
 
     this.data.Record.approved_status = "" ;
+
+    this.data.Record.spot_request_send = 'N';
+    this.data.Record.spot_approval_send  = 'N';
+    
 
     this.data.tab = 'DETAILS';
     this.data.mode = 'ADD';
@@ -461,6 +468,8 @@ export class PimSpotComponent {
     var mdata = new mailhistory();
     mdata.mail_process_id = 0;
     this.maildata = mdata;
+
+
   }
 
   getMailData(evt : any)
@@ -468,7 +477,26 @@ export class PimSpotComponent {
     if ( evt  =="SEND"){
       // process_id need to be made 0 otherwise email will be send automatically
       this.initMailHisory();
-     }
+
+      let SearchData1 = {
+        table : 'PIM_SPOTM',
+        type :  'VENDOR REQUEST SEND',
+        pkid : this.data.Record.spot_pkid,
+    };
+    this.data.ErrorMessage = '';
+    this.data.InfoMessage = '';
+    this.gs.UpdateSql(SearchData1).subscribe(response => {
+      if ( response.flag)
+      {
+        this.data.Record.spot_request_send = 'Y';
+      }
+      },
+      error => {
+          this.data.ErrorMessage = this.gs.getError(error);
+          alert( this.data.ErrorMessage);
+      });
+
+    }
     else  {
         let SearchData = {
           pkid: this.data.pkid,
@@ -486,14 +514,17 @@ export class PimSpotComponent {
           mdata.mail_send_by = this.gs.globalVariables.user_code;
           mdata.mail_send_to = response.email_to ;
           mdata.mail_send_cc = response.email_cc ;
-          mdata.mail_refno =  "JOB# "+this.data.Record.spot_slno;
+          mdata.mail_refno =  "REQ# "+this.data.Record.spot_req_no;
           mdata.mail_comments = "Mail Sent";
           mdata.mail_files = response.filename;
           mdata.mail_date = "";
 
-          mdata.mail_subject = "Recce Work Job #" + this.data.Record.spot_slno;
+          mdata.mail_subject = "Recce Work Requesr #" + this.data.Record.spot_req_no;
           
           mdata.mail_message = "Dear Sir \n\n\n";
+
+          if ( this.data.Record.spot_vendor_web.length > 0)
+            mdata.mail_message =  this.data.Record.spot_vendor_web + "\n\n\n";
           
           mdata.mail_message += "Pls find the attached Recce work Details\n\n\n";
 

@@ -1,4 +1,6 @@
-<button (click)="showContent(content)" class="btn btn-primary btn-sm">{{caption}}</button>
+
+
+<button (click)="showContent(content)" class="btn btn-primary btn-sm">{{caption}}{{sendStatus()}}</button>
 
 
 <ng-template #content let-modal>

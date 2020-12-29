@@ -35,21 +35,20 @@
       </div>
     </div>
 
+    <div class="form-group row mt-1">
+      <label class="col-4 col-form-label col-form-label-sm">Height</label>
+      <div class="col-8">
+        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_ht" disabled />
+      </div>
+    </div>    
+
 
   </div>
 
   <div class="col-sm-3 border p-2">
 
 
-    <div class="form-group row mt-1">
-      <label class="col-4 col-form-label col-form-label-sm">Height</label>
-      <div class="col-8">
-        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_ht" disabled />
-      </div>
-    </div>
-
-
-
+    <!-- 
     <div class="form-group row mt-1">
       <label class="col-4 col-form-label  col-form-label-sm">ArtWork</label>
       <div class="col-8">
@@ -57,11 +56,47 @@
       </div>
     </div>
 
-
     <div class="form-group row mt-1">
       <label class="col-4 col-form-label  col-form-label-sm">Product</label>
       <div class="col-8">
         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.spotd_product_name" disabled />
+      </div>
+    </div> 
+    -->
+
+
+    <div class="form-group row mt-1">
+      <label class="col-4 col-form-label  col-form-label-sm">ArtWork</label>
+      <div class="col-8">
+        <app-autocomplete2 [controlname]="'ARTWORK'" [tabletype]="'PARAM'" [subtype]="'ARTWORK'"
+          [displaycolumn]="'NAME'" [id]="Record.spotd_artwork_id" 
+          [displaydata]="Record.spotd_artwork_name"
+          [disabled]="!isAdmin"
+          (IdChanged)="Record.spotd_artwork_id=$event" 
+          (NameChanged)="Record.spotd_artwork_name=$event">
+        </app-autocomplete2>
+      </div>
+    </div>
+
+
+    <div class="form-group row mt-1">
+      <label class="col-4 col-form-label  col-form-label-sm">Product</label>
+      <div class="col-8">
+        <app-autocomplete2 [controlname]="'PRODUCT'" [tabletype]="'PARAM'" [subtype]="'PRODUCT'"
+          [displaycolumn]="'NAME'" [id]="Record.spotd_product_id" 
+          [displaydata]="Record.spotd_product_name"
+          [disabled]="!isAdmin"          
+          (IdChanged)="Record.spotd_product_id=$event" 
+          (NameChanged)="Record.spotd_product_name=$event">
+        </app-autocomplete2>
+      </div>
+    </div>
+
+    
+    <div class="form-group row mt-1" *ngIf="isAdmin">
+      <label class="col-4 col-form-label  col-form-label-sm"></label>
+      <div class="col-8">
+        <button class="btn btn-info btn-sm mx-1" (click)="SaveDet()">Update</button>
       </div>
     </div>
 

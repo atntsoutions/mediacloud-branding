@@ -44,6 +44,16 @@ export class MailHistoryComponent {
       this.pkid = value;
   }
 
+  private _mailsend: string = '';
+  @Input() set mailsend(value: string) {
+    if (value != null)
+      this._mailsend = value;
+  }
+  get mailsend() : string{
+    return this._mailsend;
+  }
+
+
   private  _mail_source: string = '';
   @Input() set mailsource(value: string) {
     if (value != null)
@@ -156,6 +166,14 @@ export class MailHistoryComponent {
           this.getMailData.emit('SEND');          
           this.ErrorMessage = this.gs.getError(error);
       });
+  }
+
+  sendStatus(){
+    if ( this.mailsend == 'Y')
+      return ' [SEND]';
+    else 
+      return '';
+
   }
 
 

@@ -279,6 +279,11 @@ export class GlobalService {
   }
 
 
+  public UpdateSql(Record: any) {
+    return this.http2.post<any>(this.baseUrl + "/api/Admin/Company/UpdateSql", Record, this.headerparam2('authorized'));
+  }
+
+
 
   public DownloadFile(report_folder: string, filename: string, filetype: string, filedisplayname: string = 'N') {
     let body = 'report_folder=' + report_folder + '&filename=' + filename + '&filetype=' + filetype + '&filedisplayname=' + filedisplayname;

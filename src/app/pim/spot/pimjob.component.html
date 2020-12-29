@@ -64,6 +64,7 @@
       <thead class="page-body-thead">
         <tr>
           <th>JOB#</th>
+          <th>REQ#</th>
           <th>DATE</th>
           
           <th>REGION</th>
@@ -91,6 +92,7 @@
 
         <tr *ngFor="let rec of data.RecordList; let i = index">
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_slno}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_req_no}}</td>
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_date }}</td>
           
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_region_name}}</td>
@@ -164,6 +166,14 @@
         </div>
       </div>
 
+      <div class="form-group row mt-1">
+        <label class="col-4 col-form-label col-form-label-sm">Request#</label>
+        <div class="col-8">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="data.Record.spot_req_no"  />
+        </div>
+      </div>
+
+
 
       <div class="form-group row mt-1">
         <label class="col-4 col-form-label  col-form-label-sm">Date</label>
@@ -225,6 +235,7 @@
           *ngIf="data.mode == 'EDIT' && (gs.globalVariables.user_role_name == 'ZONE ADMIN' || gs.globalVariables.user_code == 'ADMIN' )"
           [caption]="'Approval Mail'" 
           [sendCaption]="'Send Approval'" 
+          [mailsend]="data.Record.spot_approval_send"
           [maildata]="maildata"
           [mailsource]="'JOB'" 
           [id]="data.pkid" 

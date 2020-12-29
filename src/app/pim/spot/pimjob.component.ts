@@ -213,6 +213,9 @@ export class PimJobComponent {
     this.data.Record.spot_pkid = this.data.pkid;
     this.data.Record.spot_date = this.gs.defaultValues.today;
 
+
+    this.data.Record.spot_req_no = 0;
+
     this.data.Record.spot_store_id = "";
     this.data.Record.spot_store_name = "";
     
@@ -238,6 +241,9 @@ export class PimJobComponent {
 
     this.data.Record.spot_server_folder = "" ;
     this.data.Record.approved_status = "" ;
+
+    this.data.Record.spot_request_send = 'N';
+    this.data.Record.spot_approval_send  = 'N';
 
 
     this.data.tab = 'DETAILS';
@@ -291,6 +297,7 @@ export class PimJobComponent {
 
           const item = this.data.RecordList.find(rec => rec.spot_pkid == this.data.Record.spot_pkid);
           if (item != null) {
+            item.spot_req_no = this.data.Record.spot_req_no;            
             item.spot_store_name = this.data.Record.spot_store_name;
             item.spot_job_remarks = this.data.Record.spot_job_remarks;
           }
@@ -407,8 +414,27 @@ export class PimJobComponent {
   {
     if ( evt  =="SEND"){
       // process_id need to be made 0 otherwise email will be send automatically
+      
       this.initMailHisory();
-     }
+
+      let SearchData1 = {
+        table : 'PIM_SPOTM',
+        type :  'APPROVAL SEND',
+        pkid : this.data.Record.spot_pkid,
+    };
+    this.data.ErrorMessage = '';
+    this.data.InfoMessage = '';
+    this.gs.UpdateSql(SearchData1).subscribe(response => {
+        if ( response.flag)
+        {
+          this.data.Record.spot_approval_send = 'Y';
+        }
+      },
+      error => {
+          this.data.ErrorMessage = this.gs.getError(error);
+          alert( this.data.ErrorMessage);
+      });
+    }
     else  {
         let SearchData = {
           pkid: this.data.pkid,
@@ -452,10 +478,6 @@ export class PimJobComponent {
         });
     }
   }
-
-
-
-
 
 
 }
