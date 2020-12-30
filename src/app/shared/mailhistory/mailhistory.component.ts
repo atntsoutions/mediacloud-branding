@@ -170,7 +170,7 @@ export class MailHistoryComponent {
 
   sendStatus(){
     if ( this.mailsend == 'Y')
-      return ' [SEND]';
+      return ' [SENT]';
     else 
       return '';
 

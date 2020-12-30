@@ -129,7 +129,7 @@ export class CompanyComponent {
   }
 
   remove(rec : Companym){
-    if(confirm("Are you sure to delete " + rec.comp_name)) {
+    if(confirm("Are you sure to delete " + rec.comp_name2)) {
 
       let SearchData = {
         pkid: rec.comp_pkid,
@@ -223,6 +223,7 @@ export class CompanyComponent {
     
     this.Record.comp_code = '';
     this.Record.comp_name = '';
+    this.Record.comp_name2 = '';
     this.Record.comp_short_name = '';
     this.Record.comp_type = this.type;
     this.Record.comp_address1 = '';
@@ -307,6 +308,11 @@ export class CompanyComponent {
     if ( this.mode == 'ADD' && this.type != 'C')
       this.Record.comp_parent_id = this.gs.globalVariables.comp_pkid;
 
+    this.Record.comp_name = this.Record.comp_name2;
+    if ( this.Record.comp_type == "S") {
+      this.Record.comp_name = this.Record.comp_name2 + ' ' + this.Record.comp_location;
+    }
+
     this.loading = true;
     this.ErrorMessage = '';
     
@@ -350,19 +356,31 @@ export class CompanyComponent {
       sError = "Code Cannot Be Blank";
     }
 
-    if (this.Record.comp_name.trim().length <= 0) {
+    if (this.Record.comp_name2.trim().length <= 0) {
       bret = false;
       sError += "\n\rName Cannot Be Blank";
     }
 
 
-    if (bret) {
-      this.Record.comp_code = this.Record.comp_code.toUpperCase().replace(' ', '');
-      this.Record.comp_name = this.Record.comp_name.toUpperCase().trim();
+
+    if ( this.Record.comp_type == "S") {
+      if (this.Record.comp_location.trim().length <= 0) {
+        bret = false;
+        sError += "\n\rLocation Cannot Be Blank";
+      }
     }
 
-    if (bret === false)
+
+    if (bret) {
+      this.Record.comp_code = this.Record.comp_code.toUpperCase().replace(' ', '');
+      this.Record.comp_name2 = this.Record.comp_name2.toUpperCase().trim();
+      this.Record.comp_location = this.Record.comp_location.toUpperCase().trim();
+    }
+
+    if (bret === false) {
       this.ErrorMessage = sError;
+      alert( this.ErrorMessage);
+    }
     return bret;
   }
 
@@ -392,9 +410,9 @@ export class CompanyComponent {
           this.Record.comp_code = this.Record.comp_code.toUpperCase();
           break;
         }
-      case 'comp_name':
+      case 'comp_name2':
         {
-          this.Record.comp_name = this.Record.comp_name.toUpperCase();
+          this.Record.comp_name2 = this.Record.comp_name2.toUpperCase();
           break;
         }
       case 'comp_address1':

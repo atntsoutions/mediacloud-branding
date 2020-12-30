@@ -383,6 +383,9 @@ export class PimSpotComponent {
     rec.spotd_final_view_file = null;
     rec.spotd_final_view_file_uploaded = false;    
 
+
+    rec.spotd_remarks= "";
+
     rec.rec_mode = "ADD"; 
     this.data.RecordDet.push(rec);
   }
@@ -452,6 +455,7 @@ export class PimSpotComponent {
       this.data.tab = 'REPORT';
     },error => {
           this.data.ErrorMessage = this.gs.getError(error);
+          alert(this.data.ErrorMessage);
     });
   }
 
@@ -519,7 +523,7 @@ export class PimSpotComponent {
           mdata.mail_files = response.filename;
           mdata.mail_date = "";
 
-          mdata.mail_subject = "Recce Work Requesr #" + this.data.Record.spot_req_no;
+          mdata.mail_subject = "Recce Work Request #" + this.data.Record.spot_req_no;
           
           mdata.mail_message = "Dear Sir \n\n\n";
 

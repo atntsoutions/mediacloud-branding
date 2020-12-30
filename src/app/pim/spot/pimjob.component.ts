@@ -380,6 +380,7 @@ export class PimJobComponent {
       this.data.tab = 'REPORT';
     },error => {
           this.data.ErrorMessage = this.gs.getError(error);
+          alert(this.data.ErrorMessage);
     });
   }
 
@@ -452,16 +453,16 @@ export class PimJobComponent {
           mdata.mail_send_by = this.gs.globalVariables.user_code;
           mdata.mail_send_to = response.email_to ;
           mdata.mail_send_cc = response.email_cc ;
-          mdata.mail_refno =  "JOB# "+this.data.Record.spot_slno;
+          mdata.mail_refno =  "REQ# "+this.data.Record.spot_req_no;
           mdata.mail_comments = "Mail Sent";
           mdata.mail_files = response.filename;
           mdata.mail_date = "";
 
-          mdata.mail_subject = "Recce Work Approval  Job #" + this.data.Record.spot_slno;
+          mdata.mail_subject = "Recce Work Approval Req#" + this.data.Record.spot_req_no;
           
           mdata.mail_message = "Dear Sir \n\n\n";
           
-          mdata.mail_message += "Pls find Approval/Rejection Status of Recce Job # "  + this.data.Record.spot_slno +"\n\n\n";
+          mdata.mail_message += "Pls find Approval/Rejection Status of Recce Job Req# "  + this.data.Record.spot_req_no +"\n\n\n";
 
           mdata.mail_message += response.html;
 

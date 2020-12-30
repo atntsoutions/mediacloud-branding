@@ -74,10 +74,8 @@
           <th>STORE-CONTACT</th>
           <th>STORE-TEL</th>
 
-          <th>APPROVAL-STATUS</th>
-          <th>BY</th>
-          <th>DATE</th>
-          <th>REMRAKS</th>
+          <th>REQ.SENT</th>
+          <th>APPR.RECD</th>
 
           <th>CREATED-BY</th>
           <th>CREATED-DATE</th>
@@ -105,11 +103,9 @@
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_store_contact_name}}</td>
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_store_contact_tel}}</td>
 
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_request_send}}</td>
+          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.spot_approval_send}}</td>
 
-          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.approved_status}}</td>
-          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.approved_by}}</td>
-          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.approved_date}}</td>
-          <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.approved_remarks}}</td>
 
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.rec_created_by}}</td>
           <td (click)="ActionHandler('EDIT',rec.spot_pkid)">{{rec.rec_created_date}}</td>
