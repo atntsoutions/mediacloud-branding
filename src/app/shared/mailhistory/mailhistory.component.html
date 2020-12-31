@@ -52,7 +52,7 @@
   <div class="modal-footer">
     <div class="mx-auto">
       <button (click)="getDataFromParent()" class="btn btn-primary mx-3" [disabled]="!bSave" >{{sendCaption}}</button>
-      <button type="button" ngbAutofocus class="btn btn-info" (click)="modal.close('Close click')">Close</button>
+      <button type="button" ngbAutofocus class="btn btn-info" (click)="modal.close('Close click')" [disabled]="!bSave" >Close</button>
 
       <div class="loading-screen-icon" *ngIf="loading">
         <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
