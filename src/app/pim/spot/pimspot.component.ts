@@ -208,7 +208,7 @@ export class PimSpotComponent {
     this.data.Record.spot_pkid = this.data.pkid;
     this.data.Record.spot_date = this.gs.defaultValues.today;
 
-    this.data.Record.spot_req_no = 0;
+    this.data.Record.spot_req_no = "";
 
 
     this.data.Record.spot_store_id = "";

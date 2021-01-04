@@ -7,7 +7,7 @@ export class pim_spot {
 
     spot_date : string;
     spot_slno : number;
-    spot_req_no : number;
+    spot_req_no : string;
 
     spot_store_id : string;
     spot_store_name  : string;
