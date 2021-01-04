@@ -523,14 +523,22 @@ export class PimSpotComponent {
           mdata.mail_files = response.filename;
           mdata.mail_date = "";
 
-          mdata.mail_subject = "Recce Work Request #" + this.data.Record.spot_req_no;
+          mdata.mail_subject = "Recce Work Request #" + this.data.Record.spot_req_no + " " + this.data.Record.spot_store_name +  " (Approval request to Zone Admin)";
           
           mdata.mail_message = "Dear Sir \n\n\n";
 
+          /*
           if ( this.data.Record.spot_vendor_web.length > 0)
             mdata.mail_message =  this.data.Record.spot_vendor_web + "\n\n\n";
+          */
+
+          mdata.mail_message += "A new request Number " + this.data.Record.spot_req_no  + " by " +  this.data.Record.spot_vendor_name + " For " + this.data.Record.spot_store_name + " has been submitted for your approval\n\n\n";
+          mdata.mail_message += "to approve or reject\n\n\n";
           
-          mdata.mail_message += "Pls find the attached Recce work Details\n\n\n";
+          mdata.mail_message += "For more details click below link \n\n\n";
+
+          mdata.mail_message += "http://202.88.246.57:9001 \n\n\n";
+
 
           mdata.mail_message += "Thanks And Regards\n";
           mdata.mail_message += this.gs.globalVariables.user_name;

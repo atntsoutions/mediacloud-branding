@@ -458,11 +458,15 @@ export class PimJobComponent {
           mdata.mail_files = response.filename;
           mdata.mail_date = "";
 
-          mdata.mail_subject = "Recce Work Approval Req#" + this.data.Record.spot_req_no;
+          mdata.mail_subject = "Updated status recce work request#" + this.data.Record.spot_req_no + " " + this.data.Record.spot_store_name;
           
           mdata.mail_message = "Dear Sir \n\n\n";
           
-          mdata.mail_message += "Pls find Approval/Rejection Status of Recce Job Req# "  + this.data.Record.spot_req_no +"\n\n\n";
+          mdata.mail_message += "There is an update on your recent request # "  + this.data.Record.spot_req_no + " by " +  this.data.Record.spot_vendor_name + " for " + this.data.Record.spot_store_name + "\n\n\n";
+
+          mdata.mail_message += "For more details click below link \n\n\n";
+
+          mdata.mail_message += "http://202.88.246.57:9001 \n\n\n";
 
           mdata.mail_message += response.html;
 
