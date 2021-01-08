@@ -85,7 +85,9 @@ export class pim_spotd {
     spotd_long_view_file : File;
     spotd_final_view_file : File;
 
-    
+    spotd_close_view_resize : boolean;
+    spotd_long_view_resize : boolean;
+    spotd_final_view_resize : boolean;
 
     spotd_close_view_file_uploaded : boolean ;
     spotd_long_view_file_uploaded :  boolean ;
