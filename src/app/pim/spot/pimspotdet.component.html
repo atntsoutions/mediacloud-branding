@@ -90,7 +90,7 @@
         </div>
       </div>
 
-      <div class="form-group row mt-1" >
+      <div class="form-group row mt-1" *ngIf="bResize">
         <label class="col-4 col-form-label  col-form-label-sm"></label>
         <div class="col-8">
           <input class ="mr-1" type="checkbox"  [(ngModel)]="Record.spotd_close_view_resize" />
@@ -113,7 +113,7 @@
         </div>
       </div>
 
-      <div class="form-group row mt-1" >
+      <div class="form-group row mt-1"  *ngIf="bResize">
         <label class="col-4 col-form-label  col-form-label-sm"></label>
         <div class="col-8">
           <input class ="mr-1" type="checkbox"  [(ngModel)]="Record.spotd_long_view_resize" />
@@ -136,7 +136,7 @@
         </div>
       </div>
 
-      <div class="form-group row mt-1" >
+      <div class="form-group row mt-1"  *ngIf="bResize">
         <label class="col-4 col-form-label  col-form-label-sm"></label>
         <div class="col-8">
           <input class ="mr-1" type="checkbox"  [(ngModel)]="Record.spotd_final_view_resize" />

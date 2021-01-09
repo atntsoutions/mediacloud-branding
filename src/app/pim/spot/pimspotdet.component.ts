@@ -33,6 +33,7 @@ export class PimSpotDetComponent {
   canSave = true;
   mode = "new";
 
+  bResize = false;
   
   sub: any;
 

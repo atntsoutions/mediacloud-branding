@@ -384,9 +384,9 @@ export class PimSpotComponent {
     rec.spotd_final_view_file_uploaded = false;    
 
 
-    rec.spotd_close_view_resize = false;
-    rec.spotd_long_view_resize = false;
-    rec.spotd_final_view_resize = false;
+    rec.spotd_close_view_resize = true;
+    rec.spotd_long_view_resize = true;
+    rec.spotd_final_view_resize = true;
 
     rec.spotd_remarks= "";
 
