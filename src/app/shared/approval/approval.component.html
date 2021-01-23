@@ -1,7 +1,6 @@
-<button (click)="showContent(content)" class="btn btn-primary btn-sm">{{title}}</button>
 
 
-<ng-template #content let-modal>
+<ng-template #content let-modal let-fullName="fullName">
   <div class="modal-header">
     <h4 class="modal-title">Approval</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
