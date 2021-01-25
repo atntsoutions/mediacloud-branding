@@ -40,10 +40,7 @@ export class AppComponent implements OnDestroy {
 
     ngOnInit() {
         
-        if ( environment.production) {
-            this.router.navigate(['login'], { replaceUrl: true });
-        }
-        else {
+        if ( !environment.production) {
             if (localStorage.length > 0) {
                 if (localStorage.getItem('access_token')) {
                     this.gs.MenuList = JSON.parse(localStorage.getItem('menu'));
