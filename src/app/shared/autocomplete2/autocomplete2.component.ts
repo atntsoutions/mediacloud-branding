@@ -134,7 +134,7 @@ export class AutoComplete2Component {
 
   bShowMore = true;
 
-
+  cols_total = 0;
 
 
   loading = false;
@@ -216,6 +216,8 @@ export class AutoComplete2Component {
 
         // if (this.rows_ending_number >= this.rows_total)
         //     this.bShowMore = false;
+
+        this.cols_total = response.cols_total;
 
         if (response.list == null)
           this.bShowMore = false;

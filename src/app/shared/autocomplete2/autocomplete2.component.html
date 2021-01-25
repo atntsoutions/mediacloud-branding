@@ -6,14 +6,19 @@
 <div [ngClass]="{'my-class': showDiv}">
  
   <div *ngIf="showDiv">
-    <button type="button" class="close" aria-label="Close" (click)="Cancel()">
+    
+   <button type="button" class="close" aria-label="Close" (click)="Cancel()">
       <span aria-hidden="true">&times;</span>
     </button>
     
-    <ul *ngFor="let item of RecList" class="list-group">
-      <!-- <li><a (click)="SelectedItem('LIST',item)">{{item.code}}</a></li> -->
-      <!-- <li style="border-bottom: 1px solid black;" ><a (click)="SelectedItem('LIST',item)">{{item.name}}</a></li> -->
+    <ul *ngFor="let item of RecList" class="list-group border border-secondary">
+
       <li class="list-group-item" ><a (click)="SelectedItem('LIST',item)">{{item.name}}</a></li>
+      <li class="list-group-item" *ngIf="cols_total >= 1" ><a (click)="SelectedItem('LIST',item)">{{item.colList1}}</a></li>
+      <li class="list-group-item" *ngIf="cols_total >= 2" ><a (click)="SelectedItem('LIST',item)">{{item.colList2}}</a></li>
+      <li class="list-group-item" *ngIf="cols_total >= 3" ><a (click)="SelectedItem('LIST',item)">{{item.colList3}}</a></li>
+
+
     </ul>
     
     <ul *ngIf="bShowMore" class="list-group">

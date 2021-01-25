@@ -16,6 +16,11 @@ export class SearchTable {
     col5: string;
     col6: string;
     col7: string;
+    
+    colLis1: string;
+    colLis2: string;
+    colLis3: string;
+
     constructor(_controlname: string = '',
         _type: string = '',
         _displaycolumn: string = '',
@@ -32,7 +37,10 @@ export class SearchTable {
         _col4: string = '',
         _col5: string = '',
         _col6: string = '',
-        _col7: string = ''
+        _col7: string = '',
+        _colList1: string = '',
+        _colList2: string = '',
+        _colList3: string = '',
     ){
         this.controlname = _controlname;
         this.displaycolumn = _displaycolumn;
@@ -51,6 +59,10 @@ export class SearchTable {
         this.col5 = _col5;
         this.col6 = _col6;
         this.col7 = _col7;
+
+        this.colLis1 = _colList1;
+        this.colLis2 = _colList2;
+        this.colLis3 = _colList3;
     }
 }
 

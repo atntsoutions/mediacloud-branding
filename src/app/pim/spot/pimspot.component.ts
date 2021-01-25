@@ -137,10 +137,15 @@ export class PimSpotComponent {
     this.data.InfoMessage = '';
     this.ms.List(SearchData)
       .subscribe(response => {
-        this.data.RecordList = response.list;
-        this.data.page_count = response.page_count;
-        this.data.page_current = response.page_current;
-        this.data.page_rowcount = response.page_rowcount;
+        if ( response.type == 'DOWNLOAD') {
+          this.gs.DownloadFile('',response.filename, response.filetype, response.filedisplayname) ;
+        }
+        else {
+          this.data.RecordList = response.list;
+          this.data.page_count = response.page_count;
+          this.data.page_current = response.page_current;
+          this.data.page_rowcount = response.page_rowcount;
+        }
       },
         error => {
           this.data.ErrorMessage = this.gs.getError(error);
